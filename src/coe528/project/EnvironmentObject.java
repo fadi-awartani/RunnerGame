@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 public abstract class EnvironmentObject {
     int x;
     int y;
+    int width;
+    int height;
     BufferedImage img;
     
     public void update() {
