@@ -23,7 +23,7 @@ public abstract class EnvironmentObject {
         
     }
     public Point getPosition(){
-        return null;
+        return new Point(x,y);
     }
     
     

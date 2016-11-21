@@ -25,6 +25,6 @@ public class RunnerCharacter extends EnvironmentObject {
     }
     
     public boolean isCollidingWith(Obstacle ob) {
-        return getPosition() == ob.getPosition();
+        return getPosition().equals(ob.getPosition());
     }
 }
