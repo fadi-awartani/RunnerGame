@@ -47,3 +47,5 @@ Temporary Items
 .apdisk
 /build/
 /nbproject/private/
+build/classes/coe528/project/Environment.class
+*.class
