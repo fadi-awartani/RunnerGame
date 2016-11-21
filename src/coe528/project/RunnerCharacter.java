@@ -5,6 +5,7 @@
  */
 package coe528.project;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +26,10 @@ public class RunnerCharacter extends EnvironmentObject {
     }
     
     public boolean isCollidingWith(Obstacle ob) {
-        return getPosition() == ob.getPosition();
+        if (new Rectangle2D.Double(x, y, width, height).intersects(ob.x , ob.y, ob.width, ob.height)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -17,13 +17,15 @@ import java.awt.image.BufferedImage;
 public abstract class EnvironmentObject {
     int x;
     int y;
+    int width;
+    int height;
     BufferedImage img;
     
     public void update() {
         
     }
     public Point getPosition(){
-        return null;
+        return new Point(x,y);
     }
     
     

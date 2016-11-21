@@ -19,7 +19,10 @@ import javax.swing.JPanel;
  * @author Fadi
  */
 public class Environment extends JPanel implements ActionListener, KeyListener {
-    int i = 0;//Remove
+        int i = 0;//Remove
+        int lvl = 0;//Level of the Runner
+        int score = 0;//Score of the Runner
+        Graphics2D g;
     
     public Environment() {
         super();
@@ -36,7 +39,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener {
         g.fillRect(0,0,this.getWidth(),this.getHeight());//x,y,width,height (Coordinates start at top left corner)
         
         g.setColor(Color.pink);
-        g.fillRect(100 + (i++ % 800), 100, 50, 50); //x,y,width,height
+        g.fillRect(100 + (i++ % 800), 100, 50, 100); //x,y,width,height
     }    
 
     @Override
@@ -55,6 +58,10 @@ public class Environment extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         //throw new UnsupportedOperationException("Not supported yet.");
+        JumpCommand c = new JumpCommand();
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+            c.OnJumpKeyPressed();
+        } 
     }
 
     @Override

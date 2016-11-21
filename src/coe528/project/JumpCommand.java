@@ -20,13 +20,13 @@ public class JumpCommand implements Command {
     }
     
     void Update(float time) {
-    positionX += velocityX * time;      // Apply horizontal velocity to X position
-    positionY += velocityY * time;      // Apply vertical velocity to X position
-    velocityY += gravity * time;        // Apply gravity to vertical velocity
+        positionX += velocityX * time;      // Apply horizontal velocity to X position
+        positionY += velocityY * time;      // Apply vertical velocity to X position
+        velocityY += gravity * time;        // Apply gravity to vertical velocity
     }
     
     void OnJumpKeyPressed() {
-    velocityY = -12.0f;   // Give a vertical boost to the players velocity to start jump
+        velocityY = -12.0f;   // Give a vertical boost to the players velocity to start jump
     }   
  
 
