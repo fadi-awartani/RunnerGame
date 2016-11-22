@@ -25,7 +25,6 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     int score = 0;//Score of the Runner
     //-----
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
-    //private ArrayList<ICommand> commands = new ArrayList<>();
     private Graphics2D g;
     
     private static int globalTime = 0; //Time since game has started. (in milliseconds)

@@ -19,6 +19,8 @@ public class RunnerGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        EnvironmentObject.loadImages();
+        
         JFrame f = new JFrame("COE 528 Project - Runner Game");
         Environment e = new Environment();
         e.setIgnoreRepaint(true);
@@ -36,7 +38,6 @@ public class RunnerGame {
         f.setLocation(posX,posY);
         
         Timer framerate = new Timer(1000/60, e); //60Hz refresh rate (1000 ms/60 frames)
-        EnvironmentObject.loadImages();
         framerate.start();
     }
 }

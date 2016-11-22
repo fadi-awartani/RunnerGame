@@ -12,11 +12,12 @@ import java.util.ArrayList;
  * @author Aaron
  */
 public class RunnerCharacter extends EnvironmentObject {
-    private static final int baseSpeed = 300; //pixels/sec 
+    private static final int baseHeight = 400, baseSpeed = 200; //pixels/sec 
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     public RunnerCharacter() {
         super(EnvironmentObject.MAIN_CHAR, 100, 100);
+        size.translate(0, baseHeight);
     }
     
     public boolean isCollidingWith(Obstacle ob) {
@@ -27,15 +28,23 @@ public class RunnerCharacter extends EnvironmentObject {
     public void update(IObserverSubject ios) {
         if(ios instanceof Environment) {
             size.translate((baseSpeed)/60, 0); //TODO: Add 
+            
+            boolean commandActive = false;
+            //Run all commands if active.
             for(ICommand c : cmds) {
-                if(c.isActive())
+                if(c.isActive()) {
+                    commandActive = true;
                     c.execute();
+                }
             }
+            
+            if(!commandActive)
+                size.setLocation((int) size.getX(), baseHeight);
         }
         
         if(ios instanceof JumpCommand) {
             JumpCommand jc = (JumpCommand) ios;
-            size.translate(0,jc.getVelocity());
+            size.setLocation((int) size.getX(), baseHeight - jc.getHeight());
         }
     }
     
