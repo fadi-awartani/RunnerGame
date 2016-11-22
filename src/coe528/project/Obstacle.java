@@ -9,12 +9,16 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Aaron
  */
-public class Obstacle extends EnvironmentObject{
-
+public class Obstacle extends EnvironmentObject {
     private int type;
     
     public Obstacle() {
-        super();
+        super((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*2),100,100);
+    }
+
+    @Override
+    public void update(IObserverSubject ios) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }
