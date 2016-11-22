@@ -49,3 +49,4 @@ Temporary Items
 /nbproject/private/
 build/classes/coe528/project/Environment.class
 *.class
+/dist/

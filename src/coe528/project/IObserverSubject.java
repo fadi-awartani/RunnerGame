@@ -2,8 +2,8 @@ package coe528.project;
 
 /**
  * A Marker interface.
+ * Uses the marker interface design pattern.
  * @author Fadi
- * @see Marker interface design pattern.
  */
 public interface IObserverSubject {   
 }
