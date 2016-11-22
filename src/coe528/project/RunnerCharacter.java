@@ -20,16 +20,16 @@ public class RunnerCharacter extends EnvironmentObject {
     private  ArrayList cmds = new ArrayList<Command>();
     
     public RunnerCharacter() {
-        super();
-        
+        super(EnvironmentObject.MAIN_CHAR, 100, 100);
         
     }
     
     public boolean isCollidingWith(Obstacle ob) {
-        if (new Rectangle2D.Double(x, y, width, height).intersects(ob.x , ob.y, ob.width, ob.height)) {
-            return true;
-        } else {
-            return false;
-        }
+        return size.intersects(ob.size);
+    }
+
+    @Override
+    public void update() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
