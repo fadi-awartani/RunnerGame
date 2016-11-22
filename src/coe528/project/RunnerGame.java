@@ -36,7 +36,6 @@ public class RunnerGame {
         f.setLocation(posX,posY);
         
         Timer framerate = new Timer(1000/60, e); //60Hz refresh rate (1000 ms/60 frames)
-        Environment.loadImages();
         EnvironmentObject.loadImages();
         framerate.start();
     }

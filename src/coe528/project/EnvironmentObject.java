@@ -43,7 +43,7 @@ public abstract class EnvironmentObject {
         size = new Rectangle(0,0,width,height);
     }
     
-    public abstract void update();
+    public abstract void update(IObserverSubject ios);
     
     /*public Point getPosition(){
         return new Point(x,y);

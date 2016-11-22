@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Aaron
  */
-public class Obstacle extends EnvironmentObject{
+public class Obstacle extends EnvironmentObject {
     private int type;
     
     public Obstacle() {
@@ -17,7 +17,7 @@ public class Obstacle extends EnvironmentObject{
     }
 
     @Override
-    public void update() {
+    public void update(IObserverSubject ios) {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
