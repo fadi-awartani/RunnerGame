@@ -5,7 +5,6 @@
  */
 package coe528.project;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +12,7 @@ import java.util.ArrayList;
  * @author Aaron
  */
 public class RunnerCharacter extends EnvironmentObject {
-
-    private int timeJumped;
-    private char jumpButton;
-    private int staticDistance;
+    private static final int baseSpeed = 300; //pixels/sec 
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     public RunnerCharacter() {
@@ -29,10 +25,22 @@ public class RunnerCharacter extends EnvironmentObject {
 
     @Override
     public void update(IObserverSubject ios) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(ios instanceof Environment) {
+            size.translate((baseSpeed)/60, 0); //TODO: Add 
+            for(ICommand c : cmds) {
+                if(c.isActive())
+                    c.execute();
+            }
+        }
+        
+        if(ios instanceof JumpCommand) {
+            JumpCommand jc = (JumpCommand) ios;
+            size.translate(0,jc.getVelocity());
+        }
     }
     
     public void applyCommand(ICommand c) {
-        cmds.add(c);//CLONE IF Command TURNS OUT TO BE MUTABLE
+        c.addCharacter(this);
+        cmds.add(c);
     }
 }

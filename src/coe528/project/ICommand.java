@@ -11,4 +11,6 @@ package coe528.project;
  */
 public interface ICommand {
     public void execute();
+    public boolean isActive();
+    public void addCharacter(RunnerCharacter rc);
 }

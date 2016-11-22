@@ -33,6 +33,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     
     public Environment() {
         super();
+        objects.add(new RunnerCharacter());
     }
     
     @Override
@@ -59,8 +60,17 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     */
     @Override
     public void actionPerformed(ActionEvent ae) {
+        //Update object positions.
         for(EnvironmentObject eo : objects) {
             eo.update(this);
+        }
+        
+        //Check for collisions between the running character and obstacles.
+        for(int i = objects.size() - 1; i > 0; i--) {
+            EnvironmentObject o = objects.get(i);
+            if(o instanceof Obstacle && getCharacter().isCollidingWith((Obstacle)o) ) {
+                getCharacter().applyCommand(new DeathCommand());
+            }
         }
         
         if(lastFrameTime != 0)
@@ -73,9 +83,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
-            RunnerCharacter rc = getCharacter();
-            JumpCommand jc = new JumpCommand(rc);
-            rc.applyCommand(jc);
+            getCharacter().applyCommand(new JumpCommand());
         } 
     }
 
@@ -84,10 +92,12 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     * @return the RunnerCharacter object.
     */
     private RunnerCharacter getCharacter() {
-        for(EnvironmentObject eo : objects) {
+        /*for(EnvironmentObject eo : objects) {
             if(eo instanceof RunnerCharacter)
                 return (RunnerCharacter) eo;
-        }
+        }*/
+        if(objects.get(0) instanceof RunnerCharacter)
+            return (RunnerCharacter) objects.get(0);
         
         System.err.println("Error: no running character.");
         System.exit(-1);
