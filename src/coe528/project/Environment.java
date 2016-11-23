@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 import java.awt.Color;
@@ -12,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -20,44 +18,58 @@ import javax.swing.JPanel;
  * @author Fadi
  */
 public class Environment extends JPanel implements ActionListener, KeyListener, IObserverSubject {
-    private int lvl = 0;//Level of the Runner
-    private int score = 0;//Score of the Runner
-    private static boolean gameOver = false;
-    //-----
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
+    private BufferedImage background, floor, gameover;
     private Graphics2D g;
     
     private static int globalTime = 0; //Time since game has started. (in milliseconds)
-    private static long lastFrameTime = 0; //UTC time of last frame.
+    private static long lastFrameTime = 0; //UTC time of last frame processed.
+    private static boolean gameOver = false;
     
     public Environment() {
         super();
         objects.add(new RunnerCharacter());
+        
         for(int i = 0; i < 1000; i++)
-            objects.add(new Obstacle());
+            objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));
+        
+        try {
+            background = ImageIO.read(EnvironmentObject.class.getResource("Images/bg.jpg"));
+            floor = ImageIO.read(EnvironmentObject.class.getResource("Images/floor.png"));
+            gameover = ImageIO.read(EnvironmentObject.class.getResource("Images/gameover.png"));
+        } catch (IOException ex) {
+            System.err.println("Image loading error at Environment");
+            System.exit(-1);
+        }
     }
     
+    /**
+     * This method is automatically called by the graphics library when the screen
+     * needs to be refreshed. It draws all graphics on screen.
+     * @param g2 The graphics object given by the caller.
+     */
     @Override
     public void paintComponent(Graphics g2)
     {
-        //Initialize graphics.
+        //Initialize graphics object.
         Graphics2D g = (Graphics2D) g2;
         
-        //Draw white background.
-        g.setColor(Color.white);
-        g.fillRect(0,0,this.getWidth(),this.getHeight());//x,y,width,height (Coordinates start at top left corner)
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(floor, 0, 410, null);
         
+        //Draw all objects.
         for(EnvironmentObject eo : objects) {
             eo.draw(g);
         }
         
+        //Draw score label.
         g.setColor(Color.black);
-        score = globalTime/500;
+        int score = globalTime/500;
         g.drawString("Score: " + score, 850, 40);
         
+        //Draw "game over" label when the game is over.
         if(gameOver) {
-            g.setColor(Color.red);
-            g.drawString("Game over!!", 400, 400);
+            g.drawImage(gameover, 250, 100, null);
         }
     }    
 
@@ -67,21 +79,15 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     */
     @Override
     public void actionPerformed(ActionEvent ae) {
-        //Update object positions.
-        if(!gameOver)
-        for(EnvironmentObject eo : objects) {
-            eo.update(this);
-        }
-        
-        //Check for collisions between the running character and obstacles.
-        for(int i = objects.size() - 1; i > 0; i--) {
-            EnvironmentObject o = objects.get(i);
-            if(o instanceof Obstacle && getCharacter().isCollidingWith((Obstacle)o) ) {
-                getCharacter().applyCommand(new DeathCommand());
+        //Update each object.
+        if(!gameOver) {
+            for(EnvironmentObject eo : objects) {
+                eo.update(this);
             }
         }
         
-        if(lastFrameTime != 0 && !gameOver)
+        //Update global time variable.
+        if(!gameOver && lastFrameTime != 0)
             globalTime += System.currentTimeMillis() - lastFrameTime;
         
         lastFrameTime = System.currentTimeMillis();
@@ -99,11 +105,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     * Obtains the running character from the ArrayList 'objects'.
     * @return the RunnerCharacter object.
     */
-    private RunnerCharacter getCharacter() {
-        /*for(EnvironmentObject eo : objects) {
-            if(eo instanceof RunnerCharacter)
-                return (RunnerCharacter) eo;
-        }*/
+    public RunnerCharacter getCharacter() {
         if(objects.get(0) instanceof RunnerCharacter)
             return (RunnerCharacter) objects.get(0);
         
@@ -112,9 +114,13 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         return null; //To calm down the compiler.
     }
     
+    /**
+     * The game is over when this function is called. All visible processes stop.
+     */
     public static void gameOver() {
         gameOver = true;
     }
+    
     /**
      * Returns the time since the game has started.
      * @return The global time variable (in milliseconds).
@@ -123,13 +129,19 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         return globalTime;
     }
     
+    /**
+     * Method stub. (Unused functionality)
+     * @param ke Unused.
+     */
     @Override
     public void keyReleased(KeyEvent ke) {
-        //Method stub. (Unused functionality)
     }
     
+    /**
+     * Method stub. (Unused functionality)
+     * @param ke Unused.
+     */
     @Override
     public void keyTyped(KeyEvent ke) {
-        //Method stub. (Unused functionality)
     }
 }

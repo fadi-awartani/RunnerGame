@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 /**
@@ -10,7 +5,7 @@ package coe528.project;
  * @author Aaron
  */
 public class JumpCommand implements ICommand, IObserverSubject {
-    private static final int jumpDuration = 600;
+    private static final int jumpDuration = 590;
     private static int latestJumpTime = 0;
     private final int initTime;
     private RunnerCharacter c;
@@ -20,6 +15,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
         latestJumpTime = initTime;
     }
     
+    @Override
     public void addCharacter(RunnerCharacter c) {
         this.c = c;
     }
@@ -39,28 +35,6 @@ public class JumpCommand implements ICommand, IObserverSubject {
     @Override
     public boolean isActive(){
         return (Environment.time() - initTime) < jumpDuration;
-    }
-    
-    /**
-     * Gives the current velocity of the jumper corresponding to the time elapsed.
-     * Gravity is assumed to be -9.8 m/s^2, and meter to pixel conversion
-     * is assumed to be 75 pixels/meter.
-     * @return The current velocity of the jump in units of pixels/frame. 
-     */
-    public int getVelocity() {
-        //Initial velocity required to get symmetrical jump over a time of t_total:
-        //Vi = (-a/2)*t_total;
-        //V(t) = Vi + a*t;
-        //(assuming up is positive.) In the graphics canvas, up is negative.
-        
-        //The equations above represented in code:
-        double vi = (9.8/2)*(jumpDuration/1000.0); //Unit: m/s
-        double v_t = vi - 9.8*(Environment.time() - initTime)/1000.0; // m/s
-        v_t *= -1;
-        
-        //Convert to integer, and to units of pixels/frame.
-        int v_t_int = (int) Math.round(v_t*400/60); // pixels/s * (frames/s)^-1 = pixels/frame
-        return v_t_int;
     }
     
     /**

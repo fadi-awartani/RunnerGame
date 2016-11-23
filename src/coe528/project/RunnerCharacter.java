@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 import java.util.ArrayList;
@@ -12,12 +7,13 @@ import java.util.ArrayList;
  * @author Aaron
  */
 public class RunnerCharacter extends EnvironmentObject {
-    private static final int baseHeight = 400, baseSpeed = 500; //pixels/sec 
+    private static final int charWidth = 40, charHeight = 80, baseSpeed = 600; //pixels/sec 
+    
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     public RunnerCharacter() {
-        super(EnvironmentObject.MAIN_CHAR, 50, 100);
-        size.translate(100, baseHeight);
+        super(EnvironmentObject.MAIN_CHAR, charWidth, charHeight);
+        size.translate(100, floorYLocation - charHeight);
     }
     
     public boolean isCollidingWith(Obstacle ob) {
@@ -41,12 +37,12 @@ public class RunnerCharacter extends EnvironmentObject {
             }
             
             if(!commandActive)
-                size.setLocation((int) size.getX(), baseHeight);
+                size.setLocation((int) size.getX(), floorYLocation - charHeight);
         }
         
         if(ios instanceof JumpCommand) {
             JumpCommand jc = (JumpCommand) ios;
-            size.setLocation((int) size.getX(), baseHeight - jc.getHeight());
+            size.setLocation((int) size.getX(), floorYLocation - charHeight - jc.getHeight());
         }
         
         if(ios instanceof DeathCommand) {

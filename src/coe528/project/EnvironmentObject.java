@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 import java.awt.Graphics2D;
@@ -12,22 +7,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * An abstract class that represents an object that will exist in the environment.7
- * Each object has an image associated with it, as well as bounds that define 
+ * An abstract class that represents an object that will exist in the environment.
+ * Each object has an image associated with it, as well as bounds that define
+ * where it can physically interact.
  * 
- * @author Aaron
+ * @authors Aaron, Anjalo, Fadi
  */
 public abstract class EnvironmentObject {
     //Constants representing the index of each image (in imgs[] below).
-    public static final int MAIN_CHAR = 0, OBSTACLE_1 = 1, OBSTACLE_2 = 2;
-    private static final int[][] imgSizes = //Size of each image in the same order as above.
-        {{100,100},     //MAIN_CHAR (width,height)
-        {100,100},      //OBSTACLE_1
-        {100,100}};     //OBSTACLE_2
+    public static final int MAIN_CHAR = 0, OBSTACLE_1 = 1, OBSTACLE_2 = 2, OBSTACLE_3 = 3;
     
     //Static variables
     private static BufferedImage[] imgs;
     protected static int cameraXLocation = 0;
+    protected static int floorYLocation = 430;
     
     //Instance variables
     protected Rectangle size; //Size of object that will be able to physically interact with other objects.
@@ -46,24 +39,17 @@ public abstract class EnvironmentObject {
     
     public abstract void update(IObserverSubject ios);
     
-    /*public Point getPosition(){
-        return new Point(x,y);
-    }*/
-    
     /**
     * Draws the environment object onto a graphics canvas.
     * @param g The graphics object to draw the EnvrionmentObject on.
     */
     public void draw(Graphics2D g) {
-        int imgWidth = imgSizes[imageIndex][0];
-        int imgHeight = imgSizes[imageIndex][1];
+        int imgWidth = imgs[imageIndex].getWidth();
+        int imgHeight = imgs[imageIndex].getHeight();
         
-        //TODO: Make images get drawn on proper coordinates for the screen. (I (Fadi) will do this)
         g.drawImage(imgs[imageIndex], 
                 (int) Math.round(size.getCenterX() - imgWidth/2.0) - cameraXLocation, 
-                (int) Math.round(size.getCenterY() - imgHeight/2.0), 
-                imgWidth, 
-                imgHeight, null);
+                (int) Math.round(size.getCenterY() - imgHeight/2.0), null);
     }
     
     /**
@@ -72,9 +58,10 @@ public abstract class EnvironmentObject {
     public static void loadImages() {
         try {
             imgs = new BufferedImage[]{
-                ImageIO.read(EnvironmentObject.class.getResource("Images/t.png")), //MAIN_CHAR
-                null, //OBSTACLE_1
-                null /*OBSTACLE_2*/ };
+                ImageIO.read(EnvironmentObject.class.getResource("Images/char.png")),      //MAIN_CHAR
+                ImageIO.read(EnvironmentObject.class.getResource("Images/obs1.png")),   //OBSTACLE_1
+                ImageIO.read(EnvironmentObject.class.getResource("Images/obs2.png")),   //OBSTACLE_2
+                ImageIO.read(EnvironmentObject.class.getResource("Images/obs3.png"))};  //OBSTACLE_3
         } catch (IOException ex) {
             System.err.println("Image loading error at EnvironmentObject");
             System.exit(-1);
