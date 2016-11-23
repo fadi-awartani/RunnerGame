@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Aaron
  */
 public class RunnerCharacter extends EnvironmentObject {
-    private static final int charWidth = 40, charHeight = 80, baseSpeed = 600; //pixels/sec 
+    private static final int charWidth = 40, charHeight = 80, baseSpeed = 500; //pixels/sec 
     
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
@@ -23,7 +23,7 @@ public class RunnerCharacter extends EnvironmentObject {
     @Override
     public void update(IObserverSubject ios) {
         if(ios instanceof Environment) {
-            int addX = (baseSpeed)/60;
+            int addX = (baseSpeed + (Environment.time()/15000)*100)/60;
             size.translate(addX, 0); //TODO: Add 
             cameraXLocation += addX;
             
