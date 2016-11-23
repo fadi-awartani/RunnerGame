@@ -1,6 +1,7 @@
 package coe528.project;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
     private BufferedImage background, floor, gameover;
     private Graphics2D g;
+    private static boolean startGame = false;
+    private Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
     private static int globalTime = 0; //Time since game has started. (in milliseconds)
     private static long lastFrameTime = 0; //UTC time of last frame processed.
@@ -57,21 +60,33 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         g.drawImage(background, 0, 0, null);
         g.drawImage(floor, 0, 410, null);
         
-        //Draw all objects.
+        //Menu
+       if (startGame == false) { 
+            g.setFont(font);
+            g.setColor(Color.black);
+            g.drawString("Press SPACE to START GAME", 50, 400);
+            g.drawString("Infinite Runner", 50, 100);
+        }  
+       //Start Game
+        else if(startGame == true) {
+        
+//Draw all objects.
         for(EnvironmentObject eo : objects) {
             eo.draw(g);
         }
         
         //Draw score label.
+        g.setFont(new Font("arial", Font.BOLD, 24));
         g.setColor(Color.black);
         int score = globalTime/500;
-        g.drawString("Score: " + score, 850, 40);
+        g.drawString("Score: " + score, 800, 40);
         
         //Draw "game over" label when the game is over.
         if(gameOver) {
             g.drawImage(gameover, 250, 100, null);
         }
-    }    
+    } 
+    }
 
     /**
     * Timer is attached to this: this gets called many times a second.
@@ -97,6 +112,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
+            startGame = true;
             getCharacter().applyCommand(new JumpCommand());
         }
     }
