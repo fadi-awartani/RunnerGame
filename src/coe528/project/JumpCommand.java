@@ -7,7 +7,7 @@ package coe528.project;
 public class JumpCommand implements ICommand, IObserverSubject {
     private static final int jumpDuration = 610;
     private static final double a = 9.8;
-    private static int latestJumpTime = -jumpDuration - 1;
+    private static int latestJumpTime = -jumpDuration;
     private final int initTime;
     private RunnerCharacter c;
     
@@ -26,7 +26,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * @return Returns true if there are no active jump commands at the moment.
      */
     public static boolean canJump() {
-        return Environment.time() - latestJumpTime > jumpDuration;
+        return Environment.time() - latestJumpTime >= jumpDuration;
     }
     
     /**
