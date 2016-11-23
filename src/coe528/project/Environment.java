@@ -22,12 +22,12 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
     private BufferedImage background, floor, gameover;
     private Graphics2D g;
-    private static boolean startGame = false;
     private Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
     private static int globalTime = 0; //Time since game has started. (in milliseconds)
     private static long lastFrameTime = 0; //UTC time of last frame processed.
     private static boolean gameOver = false;
+    private static boolean startGame = false;
     
     public Environment() {
         super();
@@ -61,16 +61,15 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         g.drawImage(floor, 0, 410, null);
         
         //Menu
-       if (startGame == false) { 
+       if (!startGame) { 
             g.setFont(font);
             g.setColor(Color.black);
-            g.drawString("Press SPACE to START GAME", 50, 400);
-            g.drawString("Infinite Runner", 50, 100);
-        }  
-       //Start Game
-        else if(startGame == true) {
+            g.drawString("Press SPACE to START GAME", 70, 380);
+            g.drawString("Infinite Runner", 50, 80);
+            return;
+        }
         
-//Draw all objects.
+        //Draw all objects.
         for(EnvironmentObject eo : objects) {
             eo.draw(g);
         }
@@ -85,7 +84,6 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         if(gameOver) {
             g.drawImage(gameover, 250, 100, null);
         }
-    } 
     }
 
     /**
@@ -95,18 +93,19 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     @Override
     public void actionPerformed(ActionEvent ae) {
         //Update each object.
-     if(startGame == true)
-        if(!gameOver) {
+        if(startGame && !gameOver) {
             for(EnvironmentObject eo : objects) {
                 eo.update(this);
             }
         }
         
         //Update global time variable.
-        if(!gameOver && lastFrameTime != 0)
+        if(startGame && !gameOver && lastFrameTime != 0)
             globalTime += System.currentTimeMillis() - lastFrameTime;
         
-        lastFrameTime = System.currentTimeMillis();
+        if(startGame)
+            lastFrameTime = System.currentTimeMillis();
+        
         this.repaint();//Repaints screen (calls paintComponent)
     }
 
