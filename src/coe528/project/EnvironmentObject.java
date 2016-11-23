@@ -27,10 +27,11 @@ public abstract class EnvironmentObject {
     
     //Static variables
     private static BufferedImage[] imgs;
+    protected static int cameraXLocation = 0;
     
     //Instance variables
     protected Rectangle size; //Size of object that will be able to physically interact with other objects.
-    private int imageWidth, imageHeight, imageIndex;
+    private int imageIndex;
 
     public EnvironmentObject(int image, int width, int height) {
         if(image < 0 || image >= imgs.length)
@@ -59,7 +60,7 @@ public abstract class EnvironmentObject {
         
         //TODO: Make images get drawn on proper coordinates for the screen. (I (Fadi) will do this)
         g.drawImage(imgs[imageIndex], 
-                (int) Math.round(size.getCenterX() - imgWidth/2.0), 
+                (int) Math.round(size.getCenterX() - imgWidth/2.0) - cameraXLocation, 
                 (int) Math.round(size.getCenterY() - imgHeight/2.0), 
                 imgWidth, 
                 imgHeight, null);

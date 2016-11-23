@@ -20,9 +20,9 @@ import javax.swing.JPanel;
  * @author Fadi
  */
 public class Environment extends JPanel implements ActionListener, KeyListener, IObserverSubject {
-    int i = 0;//Remove
-    int lvl = 0;//Level of the Runner
-    int score = 0;//Score of the Runner
+    private int lvl = 0;//Level of the Runner
+    private int score = 0;//Score of the Runner
+    private static boolean gameOver = false;
     //-----
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
     private Graphics2D g;
@@ -33,6 +33,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     public Environment() {
         super();
         objects.add(new RunnerCharacter());
+        for(int i = 0; i < 1000; i++)
+            objects.add(new Obstacle());
     }
     
     @Override
@@ -49,8 +51,14 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
             eo.draw(g);
         }
         
-        //g.setColor(Color.pink);
-        //g.fillRect(100 + (i++ % 800), 100, 50, 100); //x,y,width,height
+        g.setColor(Color.black);
+        score = globalTime/500;
+        g.drawString("Score: " + score, 850, 40);
+        
+        if(gameOver) {
+            g.setColor(Color.red);
+            g.drawString("Game over!!", 400, 400);
+        }
     }    
 
     /**
@@ -60,6 +68,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     @Override
     public void actionPerformed(ActionEvent ae) {
         //Update object positions.
+        if(!gameOver)
         for(EnvironmentObject eo : objects) {
             eo.update(this);
         }
@@ -72,7 +81,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
             }
         }
         
-        if(lastFrameTime != 0)
+        if(lastFrameTime != 0 && !gameOver)
             globalTime += System.currentTimeMillis() - lastFrameTime;
         
         lastFrameTime = System.currentTimeMillis();
@@ -83,7 +92,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
             getCharacter().applyCommand(new JumpCommand());
-        } 
+        }
     }
 
     /**
@@ -103,6 +112,9 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         return null; //To calm down the compiler.
     }
     
+    public static void gameOver() {
+        gameOver = true;
+    }
     /**
      * Returns the time since the game has started.
      * @return The global time variable (in milliseconds).

@@ -12,12 +12,12 @@ import java.util.ArrayList;
  * @author Aaron
  */
 public class RunnerCharacter extends EnvironmentObject {
-    private static final int baseHeight = 400, baseSpeed = 200; //pixels/sec 
+    private static final int baseHeight = 400, baseSpeed = 500; //pixels/sec 
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     public RunnerCharacter() {
-        super(EnvironmentObject.MAIN_CHAR, 100, 100);
-        size.translate(0, baseHeight);
+        super(EnvironmentObject.MAIN_CHAR, 50, 100);
+        size.translate(100, baseHeight);
     }
     
     public boolean isCollidingWith(Obstacle ob) {
@@ -27,7 +27,9 @@ public class RunnerCharacter extends EnvironmentObject {
     @Override
     public void update(IObserverSubject ios) {
         if(ios instanceof Environment) {
-            size.translate((baseSpeed)/60, 0); //TODO: Add 
+            int addX = (baseSpeed)/60;
+            size.translate(addX, 0); //TODO: Add 
+            cameraXLocation += addX;
             
             boolean commandActive = false;
             //Run all commands if active.
@@ -45,6 +47,10 @@ public class RunnerCharacter extends EnvironmentObject {
         if(ios instanceof JumpCommand) {
             JumpCommand jc = (JumpCommand) ios;
             size.setLocation((int) size.getX(), baseHeight - jc.getHeight());
+        }
+        
+        if(ios instanceof DeathCommand) {
+            Environment.gameOver();
         }
     }
     
