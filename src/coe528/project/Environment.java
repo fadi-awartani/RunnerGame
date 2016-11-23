@@ -95,6 +95,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     @Override
     public void actionPerformed(ActionEvent ae) {
         //Update each object.
+     if(startGame == true)
         if(!gameOver) {
             for(EnvironmentObject eo : objects) {
                 eo.update(this);
