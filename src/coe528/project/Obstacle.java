@@ -1,13 +1,24 @@
 package coe528.project;
 
 /**
- *
- * @author Aaron
+ * Represents an obstacle that the character can collide with.
+ * Abstraction Function:
+ * 
+ * 
+ * Rep Invariant:
+ * 
+ * 
+ * @author Aaron, Anjalo, Fadi
  */
 public class Obstacle extends EnvironmentObject {
     private int type;
     private static int lastXPosition = 1000;
     
+    /**
+     * Creates new obstacle. Sets its x coordinate to a random amount in front of the 
+     * most recent obstacle that was created.
+     * @param imgIndex The image index representing the type of obstacle.
+     */
     public Obstacle(int imgIndex) {
         super(imgIndex,10,10);
         
@@ -32,7 +43,7 @@ public class Obstacle extends EnvironmentObject {
 
     /**
      * Updates the obstacle object; Checks whether there is a collision with the
-     * object.
+     * main character.
      * @param ios The subject object that is updating this observer. 
      */
     @Override

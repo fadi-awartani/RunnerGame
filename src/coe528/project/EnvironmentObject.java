@@ -11,7 +11,17 @@ import javax.imageio.ImageIO;
  * Each object has an image associated with it, as well as bounds that define
  * where it can physically interact.
  * 
- * @authors Aaron, Anjalo, Fadi
+ * Abstraction Function:
+ * 
+ * 
+ * Rep Invariant:
+ * imageIndex <= lengthOf(imgs)
+ * size.x > 0
+ * size.y > 0
+ * size.width > 0
+ * size.height > 0
+ * 
+ * @author Aaron, Anjalo, Fadi
  */
 public abstract class EnvironmentObject {
     //Constants representing the index of each image (in imgs[] below).

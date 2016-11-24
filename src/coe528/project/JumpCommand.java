@@ -1,24 +1,47 @@
 package coe528.project;
 
 /**
- * An immutable class 
- * @author Aaron
+ * An immutable class which represents a jump command for a RunnerCharacter.
+ * 
+ * Abstraction Function:
+ * 
+ * Rep Invariant:
+ * 
+ * @author Aaron, Anjalo, Fadi
  */
 public class JumpCommand implements ICommand, IObserverSubject {
-    private static final int jumpDuration = 610;
-    private static final double a = 9.8;
+    private static final int jumpDuration = 610; //ms
     private static int latestJumpTime = -jumpDuration;
     private final int initTime;
-    private RunnerCharacter c;
+    private final RunnerCharacter c;
     
+    /**
+     * Creates an empty JumpCommand. A character must attach itself for this object to be useful.
+     */
     public JumpCommand() {
         initTime = Environment.time();
         latestJumpTime = initTime;
+        c = null;
     }
     
-    @Override
-    public void addCharacter(RunnerCharacter c) {
+    /**
+     * Creates a JumpCommand with a RunnerCharacter attached.
+     * @param c The character to add.
+     * @param initTime The time that the previous JumpCommand calling this method was created.
+     */
+    private JumpCommand(RunnerCharacter c, int initTime) {
         this.c = c;
+        this.initTime = initTime;
+    }
+    
+    /**
+     * Attaches a character to a clone of this object, and returns the updated object.
+     * @param c The character to add.
+     * @return The updated JumpCommand object.
+     */
+    @Override
+    public ICommand addCharacter(RunnerCharacter c) {
+        return new JumpCommand(c, initTime);
     }
     
     /**
@@ -40,29 +63,31 @@ public class JumpCommand implements ICommand, IObserverSubject {
     
     /**
      * Gives the current height of the jumper corresponding to the time elapsed.
-     * Gravity is assumed to be -9.8 m/s^2, and meter to pixel conversion
-     * is assumed to be 400 pixels/meter. The up direction is positive.
+     * The jump animation is approximated by half of a sine period.
      * @return The current height of the jump in units of pixels. 
      */
     public int getHeight() {
         if(!isActive())
             return 0;
         
-        //a = acceleration downwards (m/s^2)
-        //Initial velocity required to get symmetrical jump over a time of t_total:
-        //Vi = (-a/2)*t_total;
-        //height, h(t) = Vi*t + (a/2)*t^2;
+        //Returns h(t)
+        //h(t) = max_h*sin(2*pi*(1/2T)*t)
+        //total jump time, T, = xdistance/xtime. So,
+        //h(t) = max_h*sin(pi*(xspeed/xdistance)*t)
         
-        //The above equations, represented in code:
-        double vi = (a/2)*(jumpDuration/1000.0); //Unit: m/s
-        double t = (Environment.time() - initTime)/1000.0; //Elapsed time, in seconds.
-        double h_t = vi*t - (a/2)*t*t; //meters
+        double t = (Environment.time() - initTime)/1000.0;
         
-        //Convert to integer, and to units of pixels.
-        int h_t_int = (int) Math.round(h_t*400); // meters * pixels/meters = pixels
-        return h_t_int;
+        int xspeed = RunnerCharacter.baseSpeed + (int) ((Environment.time()/15000.0)*100);
+        double xdistance = xspeed*jumpDuration/1000.0;
+        int max_height = 200;
+        
+        double h_t = max_height*Math.sin(Math.PI*(xspeed/xdistance)*t);
+        return (int) Math.round(h_t);
     }
     
+    /**
+     * Updates the character attached to this command.
+     */
     @Override
     public void execute(){
         c.update(this);

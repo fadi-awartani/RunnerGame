@@ -5,12 +5,13 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
- *
- * @author Fadi
+ * Main class: initializes all systems. (Frame, graphics environment, timer)
+ * @author Aaron, Anjalo, Fadi
  */
 public class RunnerGame {
     private static final int screenWidth = 960, screenHeight = 540;
     /**
+     * Main.
      * @param args the command line arguments
      */
     public static void main(String[] args) {

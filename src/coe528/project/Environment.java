@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,27 +16,41 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Fadi
+ * This class represents the main visible environment. It contains all objects and draws the graphics.
+ * (This is done by its parent class, JPanel.)
+ * 
+ * Abstraction Function:
+ * 
+ * Rep Invariant:
+ * globalTime >= 0, and
+ * For any two times (in the real world) t1 and t2, t2 > t1, then:
+ * globalTime(at t2) >= globalTime(at t1)
+ * 
+ * @author Aaron, Anjalo, Fadi
  */
 public class Environment extends JPanel implements ActionListener, KeyListener, IObserverSubject {
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
     private BufferedImage background, floor, gameover;
-    private Graphics2D g;
-    private Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
     private static int globalTime = 0; //Time since game has started. (in milliseconds)
     private static long lastFrameTime = 0; //UTC time of last frame processed.
     private static boolean gameOver = false;
     private static boolean startGame = false;
+    private static final Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
+    /**
+     * Creates an environment object. Initializes all environment objects and loads images.
+     */
     public Environment() {
         super();
-        objects.add(new RunnerCharacter());
+        objects.add(new RunnerCharacter()); //create main character.
         
-        for(int i = 0; i < 1000; i++)
-            objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));
+        //initialize environment with 100 obstacles.
+        for(int i = 0; i < 1000; i++) {
+            objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));//Random obstacle type.
+        }
         
+        //Load images.
         try {
             background = ImageIO.read(EnvironmentObject.class.getResource("Images/bg.jpg"));
             floor = ImageIO.read(EnvironmentObject.class.getResource("Images/floor.png"));
@@ -56,11 +71,12 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     {
         //Initialize graphics object.
         Graphics2D g = (Graphics2D) g2;
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);//Turn anti-aliasing on for text.
         
         g.drawImage(background, 0, 0, null);
         g.drawImage(floor, 0, 410, null);
         
-        //Menu
+        //Main Menu
        if (!startGame) { 
             g.setFont(font);
             g.setColor(Color.black);
@@ -69,7 +85,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
             return;
         }
         
-        //Draw all objects.
+        //Draw all environment objects.
         for(EnvironmentObject eo : objects) {
             eo.draw(g);
         }
@@ -87,8 +103,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     }
 
     /**
-    * Timer is attached to this: this gets called many times a second.
-    * @param ae ActionEvent to be called from observer subject.
+    * The timer is the only object that calls this: this method generates the refresh rate.
+    * @param ae ActionEvent to be given from observer subject.
     */
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -106,9 +122,13 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         if(startGame)
             lastFrameTime = System.currentTimeMillis();
         
-        this.repaint();//Repaints screen (calls paintComponent)
+        super.repaint();//Repaints screen (calls paintComponent)
     }
 
+    /**
+     * Automatically called when a key is pressed. Is an observer for a KeyEvent.
+     * @param ke Object that describes the event that generated this call.
+     */
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
@@ -122,6 +142,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     * @return the RunnerCharacter object.
     */
     public RunnerCharacter getCharacter() {
+        //RunnerCharacter is always in index 0 of the array list.
         if(objects.get(0) instanceof RunnerCharacter)
             return (RunnerCharacter) objects.get(0);
         
@@ -131,7 +152,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     }
     
     /**
-     * The game is over when this function is called. All visible processes stop.
+     * The game ends when this function is called. All visible processes stop.
      */
     public static void gameOver() {
         gameOver = true;
