@@ -11,7 +11,6 @@ package coe528.project;
  * @author Aaron, Anjalo, Fadi
  */
 public class Obstacle extends EnvironmentObject {
-    private int type;
     private static int lastXPosition = 1000;
     
     /**
