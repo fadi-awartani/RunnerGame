@@ -7,26 +7,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * An abstract class that represents an object that will exist in the environment.
- * Each object has an image associated with it, as well as bounds that define
- * where it can physically interact.
+ * OVERVIEW: An abstract mutable class that represents an object that will exist in the environment.
  * 
  * Abstraction Function:
- * 
+ * An EnvironmentObject is an object such that it has bounds (position and size)
+ * that define its existence, as well as an associated image.
  * 
  * Rep Invariant:
- * imageIndex <= lengthOf(imgs)
- * size.x > 0
- * size.y > 0
- * size.width > 0
+ * imageIndex <= lengthOf(imgs), and
+ * size.x > 0, and
+ * size.y > 0, and
+ * size.width > 0, and
  * size.height > 0
  * 
  * @author Aaron, Anjalo, Fadi
  */
 public abstract class EnvironmentObject {
-    //OVERVIEW: EnvironmentObject is a mutable object. A typical EnviormentObject 
-    //would be a rectangle with a specific width, height and image.
-    
     //Constants representing the index of each image (in imgs[] below).
     public static final int MAIN_CHAR = 0, OBSTACLE_1 = 1, OBSTACLE_2 = 2, OBSTACLE_3 = 3;
     
@@ -37,11 +33,18 @@ public abstract class EnvironmentObject {
     
     //Instance variables
     protected Rectangle size; //Size of object that will be able to physically interact with other objects.
-    private int imageIndex;
+    private final int imageIndex;
 
+    /**
+     * Constructor that must be called from each child of this class. 
+     * REQUIRES: An image index 'image' > 0, and valid size parameters.
+     * EFFECTS: Initializes instance variables.
+     * MODIFIES: None.
+     * @param image
+     * @param width
+     * @param height 
+     */
     public EnvironmentObject(int image, int width, int height) {
-    //REQUIRES: image > 0
-    //EFFECTS: A new rectangle is created in the origin(0,0) with magnitude width and height
         if(image < 0 || image >= imgs.length)
             throw new IllegalArgumentException("Image index invalid.");
         
@@ -56,12 +59,12 @@ public abstract class EnvironmentObject {
     
     /**
     * Draws the environment object onto a graphics canvas.
+    * REQUIRES: A valid Graphics2D object, g.
+    * MODIFIES: g.
+    * EFFECTS: The image associated with this object is drawn on g. 
     * @param g The graphics object to draw the EnvrionmentObject on.
     */
     public void draw(Graphics2D g) {
-    //REQUIRES: g != null
-    //MODIFIES: g
-    //EFFECTS: g is redrawn with an image that has a position in the 2D plane 
         int imgWidth = imgs[imageIndex].getWidth();
         int imgHeight = imgs[imageIndex].getHeight();
         
@@ -72,10 +75,12 @@ public abstract class EnvironmentObject {
     
     /**
     * This method initializes the static images array.
+    * REQUIRES: None.
+    * MODIFIES: The static image array for this class.
+    * EFFECTS: Load the array imgs with images of different types of 
+    * EnvironmentObjects.
     */
     public static void loadImages() {
-    //EFFECTS: load the array imgs with the image of a runner character and three
-    //different types of obstacles
         try {
             imgs = new BufferedImage[]{
                 ImageIO.read(EnvironmentObject.class.getResource("Images/char.png")),      //MAIN_CHAR
@@ -101,5 +106,30 @@ public abstract class EnvironmentObject {
             return false;
         else
             return true;
+    }
+    
+    /**
+     * 
+     * @return The string representation of the object.
+     */
+    @Override
+    public String toString() {
+        String type = "";
+        switch(imageIndex) {
+            case MAIN_CHAR:
+                type = "Main character";
+                break;
+            case OBSTACLE_1:
+                type = "Obstacle 1: Block";
+                break;
+            case OBSTACLE_2:
+                type = "Obstacle 2: Block";
+                break;
+            case OBSTACLE_3:
+                type = "Obstacle 3: Fire";
+                break;
+        }
+        return type + ", at (" + size.x + "," + size.y + "), width = " + size.width + 
+                ", height = " + size.height;
     }
 }
