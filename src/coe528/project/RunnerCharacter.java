@@ -79,4 +79,12 @@ public class RunnerCharacter extends EnvironmentObject {
     public void applyCommand(ICommand c) {
         cmds.add(c.addCharacter(this));
     }
+    
+    public boolean repOk(){
+        if(cmds == null)
+            return false;
+        else    
+            return true;
+    
+    }
 }

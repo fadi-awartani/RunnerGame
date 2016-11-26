@@ -24,6 +24,9 @@ import javax.imageio.ImageIO;
  * @author Aaron, Anjalo, Fadi
  */
 public abstract class EnvironmentObject {
+    //OVERVIEW: EnvironmentObject is a mutable object. A typical EnviormentObject 
+    //would be a rectangle with a specific width, height and image.
+    
     //Constants representing the index of each image (in imgs[] below).
     public static final int MAIN_CHAR = 0, OBSTACLE_1 = 1, OBSTACLE_2 = 2, OBSTACLE_3 = 3;
     
@@ -37,6 +40,8 @@ public abstract class EnvironmentObject {
     private int imageIndex;
 
     public EnvironmentObject(int image, int width, int height) {
+    //REQUIRES: image > 0
+    //EFFECTS: A new rectangle is created in the origin(0,0) with magnitude width and height
         if(image < 0 || image >= imgs.length)
             throw new IllegalArgumentException("Image index invalid.");
         
@@ -76,5 +81,20 @@ public abstract class EnvironmentObject {
             System.err.println("Image loading error at EnvironmentObject");
             System.exit(-1);
         }
+    }
+    
+    public boolean repOk(){
+        if(imageIndex > imgs.length)
+            return false;
+        else if(size.x < 0)
+            return false;
+        else if(size.y < 0)
+            return false;
+        else if(size.width < 0)
+            return false;
+        else if(size.height < 0)
+            return false;
+        else
+            return true;
     }
 }
