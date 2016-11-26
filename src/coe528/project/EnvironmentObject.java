@@ -40,9 +40,9 @@ public abstract class EnvironmentObject {
      * REQUIRES: An image index 'image' > 0, and valid size parameters.
      * EFFECTS: Initializes instance variables.
      * MODIFIES: None.
-     * @param image
-     * @param width
-     * @param height 
+     * @param image Index of image to be used for this object.
+     * @param width Width of bounds of object, in pixels.
+     * @param height Height of bounds of object, in pixels.
      */
     public EnvironmentObject(int image, int width, int height) {
         if(image < 0 || image >= imgs.length)
