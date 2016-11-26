@@ -59,6 +59,9 @@ public abstract class EnvironmentObject {
     * @param g The graphics object to draw the EnvrionmentObject on.
     */
     public void draw(Graphics2D g) {
+    //REQUIRES: g != null
+    //MODIFIES: g
+    //EFFECTS: g is redrawn with an image that has a position in the 2D plane 
         int imgWidth = imgs[imageIndex].getWidth();
         int imgHeight = imgs[imageIndex].getHeight();
         
@@ -71,6 +74,8 @@ public abstract class EnvironmentObject {
     * This method initializes the static images array.
     */
     public static void loadImages() {
+    //EFFECTS: load the array imgs with the image of a runner character and three
+    //different types of obstacles
         try {
             imgs = new BufferedImage[]{
                 ImageIO.read(EnvironmentObject.class.getResource("Images/char.png")),      //MAIN_CHAR
