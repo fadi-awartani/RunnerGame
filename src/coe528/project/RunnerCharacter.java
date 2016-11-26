@@ -12,6 +12,9 @@ import java.util.ArrayList;
  * @author Aaron, Anjalo, Fadi
  */
 public class RunnerCharacter extends EnvironmentObject {
+    //OVERVIEW: RunnerCharacter is an immutable object. A typical RunnerCharacter 
+    //would be a rectangle with a height of 80 and a width of 40. This rectangle is 
+    //represented as an image.
     private static final int charWidth = 40, charHeight = 80;
     public static final int baseSpeed = 500; //pixels/sec 
     
@@ -21,6 +24,9 @@ public class RunnerCharacter extends EnvironmentObject {
      * Creates a character and initializes its coordinates.
      */
     public RunnerCharacter() {
+    //EFFECTS: A rectangle, represented as an image, is created with a height of 80 and
+    //width of 40. The rectangle size is then translated to move 100 on the x-axis. And its moved
+    //(floorYLocation-charHeight) down the y-axis.
         super(EnvironmentObject.MAIN_CHAR, charWidth, charHeight);
         size.translate(100, floorYLocation - charHeight);
     }
@@ -31,6 +37,8 @@ public class RunnerCharacter extends EnvironmentObject {
      * @return true when there is a collision.
      */
     public boolean isCollidingWith(Obstacle ob) {
+    //REQUIRES: ob != null
+    //EFFECTS: returns true if this object intersects obstacale object
         return size.intersects(ob.size);
     }
     
@@ -40,6 +48,10 @@ public class RunnerCharacter extends EnvironmentObject {
      */
     @Override
     public void update(IObserverSubject ios) {
+    //REQUIRES: ios != null
+    //EFFECTS: If ios is an instance of Enviorment class, then its position and height is updated.
+    //It also runs any commands that are active. If ios is an instance of the DeathCommand, they 
+    //the gameOver() method is called.
         //Update position
         if(ios instanceof Environment) {
             int addX = (baseSpeed + (int)((Environment.time()/15000.0)*100))/60;
@@ -77,6 +89,16 @@ public class RunnerCharacter extends EnvironmentObject {
      * @param c the command object. 
      */
     public void applyCommand(ICommand c) {
+    //REQUIRES: c != null
+    //EFFECTS: Adds this to ICommand, and then its added to cmds array.    
         cmds.add(c.addCharacter(this));
+    }
+    
+    public boolean repOk(){
+        if(cmds == null)
+            return false;
+        else    
+            return true;
+    
     }
 }

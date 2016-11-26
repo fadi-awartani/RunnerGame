@@ -11,6 +11,10 @@ package coe528.project;
  * @author Aaron, Anjalo, Fadi
  */
 public class Obstacle extends EnvironmentObject {
+    //OVERVIEW: Obstacle is an immutable object. A typical Obstacle 
+    //would be a rectangle with a height and width of 10. This rectangle is 
+    //represented as an image by the imgIndex.
+    
     private static int lastXPosition = 1000;
     
     /**
@@ -19,6 +23,8 @@ public class Obstacle extends EnvironmentObject {
      * @param imgIndex The image index representing the type of obstacle.
      */
     public Obstacle(int imgIndex) {
+    //EFFECTS: A rectangle, represented as an image, is created with height and width of 10.
+    //Bounds are set for each obstacle based on the type of obstacle given in imgIndex.    
         super(imgIndex,10,10);
         
         int x = lastXPosition + 350 + (int) (Math.random()*500);
@@ -47,6 +53,10 @@ public class Obstacle extends EnvironmentObject {
      */
     @Override
     public void update(IObserverSubject ios) {
+    //REQUIRES: ios != null
+    //EFFECTS: This first checks if ios is an instance of the Enviorment class. Then
+    //it checks if the runner character object is colliding with this obstacle. Then it calls
+    //the RunnerCharacter to invoke the DeathCommand() in applyCommand()
         if(ios instanceof Environment) {
             Environment e = (Environment) ios;
             if(e.getCharacter().isCollidingWith(this))

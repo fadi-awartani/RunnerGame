@@ -10,6 +10,8 @@ package coe528.project;
  * @author Aaron, Anjalo, Fadi
  */
 public class JumpCommand implements ICommand, IObserverSubject {
+    //OVERVIEW: JumpCommand is mutable object. A typical JumpCommand object 
+    //would be a RunnerCharacter c with a jump duration of 610ms.
     private static final int jumpDuration = 610; //ms
     private static int latestJumpTime = -jumpDuration;
     private final int initTime;
@@ -19,6 +21,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * Creates an empty JumpCommand. A character must attach itself for this object to be useful.
      */
     public JumpCommand() {
+    //EFFECTS: creates a null RunnerCharacter with initial time(initTime) set to the present time     
         initTime = Environment.time();
         latestJumpTime = initTime;
         c = null;
@@ -30,6 +33,8 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * @param initTime The time that the previous JumpCommand calling this method was created.
      */
     private JumpCommand(RunnerCharacter c, int initTime) {
+    //REQUIRES: c != null
+    //EFFECTS: Stores c to this.c and stores the initial time to this       
         this.c = c;
         this.initTime = initTime;
     }
@@ -41,6 +46,8 @@ public class JumpCommand implements ICommand, IObserverSubject {
      */
     @Override
     public ICommand addCharacter(RunnerCharacter c) {
+    //REQUIRES: c != null
+    //EFFECTS: returns a new JumpCommand with c and initial time(initTime)     
         return new JumpCommand(c, initTime);
     }
     
@@ -49,6 +56,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * @return Returns true if there are no active jump commands at the moment.
      */
     public static boolean canJump() {
+    //EFFECTS: returns true if there is a currently active jump command          
         return Environment.time() - latestJumpTime >= jumpDuration;
     }
     
@@ -58,6 +66,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      */
     @Override
     public boolean isActive(){
+    //EFFECTS: returns true if this command is still active
         return (Environment.time() - initTime) < jumpDuration;
     }
     
@@ -67,6 +76,8 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * @return The current height of the jump in units of pixels. 
      */
     public int getHeight() {
+    //EFFECTS: If there is no active command in this, it returns 0. Else it returns
+    //the height of the jumper corresponding to the time elapsed.
         if(!isActive())
             return 0;
         
@@ -90,6 +101,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      */
     @Override
     public void execute(){
+    //EFFECTS: Updates this in RunnerCharacter c        
         c.update(this);
     } 
 }
