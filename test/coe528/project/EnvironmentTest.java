@@ -144,6 +144,137 @@ public class EnvironmentTest {
                 
     }
 
+    /**
+     * Test of paintComponent method, of class Environment.
+     */
+    @Test
+    public void testPaintComponent() {
+        System.out.println("paintComponent");
+        Graphics g2 = null;
+        Environment instance = new Environment();
+        instance.paintComponent(g2);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of actionPerformed method, of class Environment.
+     */
+    @Test
+    public void testActionPerformed() {
+        System.out.println("actionPerformed");
+        ActionEvent ae = null;
+        Environment instance = new Environment();
+        instance.actionPerformed(ae);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of keyPressed method, of class Environment.
+     */
+    @Test
+    public void testKeyPressed() {
+        System.out.println("keyPressed");
+        KeyEvent ke = null;
+        Environment instance = new Environment();
+        instance.keyPressed(ke);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCharacter method, of class Environment.
+     */
+    @Test
+    public void testGetCharacter() {
+        System.out.println("getCharacter");
+        Environment instance = new Environment();
+        RunnerCharacter expResult = null;
+        RunnerCharacter result = instance.getCharacter();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of gameOver method, of class Environment.
+     */
+    @Test
+    public void testGameOver() {
+        System.out.println("gameOver");
+        Environment.gameOver();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getTime method, of class Environment.
+     */
+    @Test
+    public void testGetTime() {
+        System.out.println("getTime");
+        Environment instance = new Environment();
+        int expResult = 0;
+        int result = instance.getTime();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of time method, of class Environment.
+     */
+    @Test
+    public void testTime() {
+        System.out.println("time");
+        int expResult = 0;
+        int result = Environment.time();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class Environment.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Environment instance = new Environment();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of keyReleased method, of class Environment.
+     */
+    @Test
+    public void testKeyReleased() {
+        System.out.println("keyReleased");
+        KeyEvent ke = null;
+        Environment instance = new Environment();
+        instance.keyReleased(ke);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of keyTyped method, of class Environment.
+     */
+    @Test
+    public void testKeyTyped() {
+        System.out.println("keyTyped");
+        KeyEvent ke = null;
+        Environment instance = new Environment();
+        instance.keyTyped(ke);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
 
     
 }

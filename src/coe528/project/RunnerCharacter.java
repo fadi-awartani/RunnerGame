@@ -20,6 +20,7 @@ public class RunnerCharacter extends EnvironmentObject {
     private static final int charWidth = 40, charHeight = 80;
     public static final int baseSpeed = 500; //pixels/sec 
     
+    
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     /**
