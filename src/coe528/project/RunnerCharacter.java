@@ -3,18 +3,15 @@ package coe528.project;
 import java.util.ArrayList;
 
 /**
- * This class represents the main running character.
- * OVERVIEW: RunnerCharacter is an mutable object. A typical RunnerCharacter 
- * would be a rectangle with a height of 80 and a width of 40. This rectangle is 
- * represented as an image.
+ * OVERVIEW: A mutable class that represents a controllable running character.
  * 
  * Abstraction Function:
- * A RunnerCharacter is an object that is generated in Environment and its checked for any invoked JumpCommand or DeathCommand. All
- * the applied commands are stored in cmds. It also helps confirm if it has collided with any Obstacle in a given moment.
- * has the x position of the last obstacle.
+ * An RunnerCharacter is an object such that it has bounds (position and size)
+ * that define its existence, as well as an associated image, and has commands that
+ * are applied to it.
  * 
  * Rep Invariant: 
- * cmds != null
+ * imageIndex = 0, and super.repOk()
  * 
  * @author Aaron, Anjalo, Fadi
  */
@@ -25,9 +22,7 @@ public class RunnerCharacter extends EnvironmentObject {
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     /**
-     * EFFECTS: A rectangle, represented as an image, is created with a height of 80 and
-     * width of 40. The rectangle size is then translated to move 100 on the x-axis. And its moved
-     * (floorYLocation-charHeight) down the y-axis.
+     * EFFECTS: Initializes instance variables.
      * REQUIRES: None
      * MODIFIES: None
      */
@@ -37,25 +32,12 @@ public class RunnerCharacter extends EnvironmentObject {
     }
     
     /**
-     * Checks whether this character is colliding with the given obstacle.
-     * REQUIRES: ob != null
-     * MODIFIES: None
-     * EFFECTS: returns true if this object intersects obstacle object
-     * @param ob The obstacle to check.
-     * @return true when there is a collision.
-     */
-    public boolean isCollidingWith(Obstacle ob) {
-        return size.intersects(ob.size);
-    }
-    
-    /**
      * Updates the character based on who requested the update.
-     * REQUIRES: ios != null
-     * MODIFIES: None
-     * EFFECTS: If ios is an instance of JumpCommand, then its position and height is updated.
-     * If ios is an instance of the DeathCommand, then 
-     * the game ends. It also runs any commands that are active in cmds
-     * @param ios The subject for this observer, that called this function.
+     * REQUIRES: ios != null.
+     * MODIFIES: Position of this object, if ios is an Environment or JumpCommand. 
+     *           Modifies the game state if ios is a DeathCommand.
+     * EFFECTS: Game state, position of this.
+     * @param ios The subject for this observer, who called this function.
      */
     @Override
     public void update(IObserverSubject ios) {
@@ -94,25 +76,27 @@ public class RunnerCharacter extends EnvironmentObject {
     /**
      * Applies command to be done to the character.
      * REQUIRES: c != null
-     * MODIFIES: None
-     * EFFECTS: Adds this to ICommand, and then its added to cmds array.
-     * @param c the command object. 
+     * MODIFIES: None.
+     * EFFECTS: Adds the given command to the command array.
+     * @param c The command object.
      */
     public void applyCommand(ICommand c) {
         cmds.add(c.addCharacter(this));
     }
     
     public boolean repOk(){
-        if(cmds == null)
-            return false;
-        else    
-            return true;
+        return imageIndex == 0 && super.repOk();
     }
     
+    /**
+     * 
+     * @return The string representation of the RunnerCharacter.
+     */
     public String toString() {
-        String s =  super.toString() + ". The speed of the RunnerCharacter is " + baseSpeed + ". These are the commands that are applied: ";
-        for(ICommand c : cmds)
-            s += c.toString();
+        String s =  super.toString() + "\nCommands applied to this character:";
+       for(ICommand c : cmds)
+            s += "\n" + c.toString();
+        
         return s;
     }
 }

@@ -33,7 +33,7 @@ public abstract class EnvironmentObject {
     
     //Instance variables
     protected Rectangle size; //Size of object that will be able to physically interact with other objects.
-    private final int imageIndex;
+    final protected int imageIndex;
 
     /**
      * Constructor that must be called from each child of this class. 

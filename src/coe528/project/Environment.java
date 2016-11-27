@@ -16,15 +16,19 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- * This class represents the main visible environment. It contains all objects and draws the graphics.
- * (This is done by its parent class, JPanel.)
+ * OVERVIEW: This mutable class represents the main visible environment. It contains all objects and draws the graphics.
+ * (This is done by its parent class, JPanel.) This class is an observer for
+ * ActionListener and KeyListener, and is a subject for EnvironmentObjects. 
  * 
  * Abstraction Function:
+ * An object such that it contains EnvironmentObjects of type RunnerCharacter
+ * and Obstacle.
  * 
  * Rep Invariant:
  * globalTime >= 0, and
- * For any two times (in the real world) t1 and t2, t2 > t1, then:
- * globalTime(at t2) >= globalTime(at t1)
+ * 'objects' contains:
+ * at least one RunnerCharacter object, and
+ * at least one Obstacle object.
  * 
  * @author Aaron, Anjalo, Fadi
  */
@@ -130,13 +134,23 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
 
     /**
      * Automatically called when a key is pressed. Is an observer for a KeyEvent.
-     * @param ke Object that describes the event that generated this call.
+     * @param ke KeyEvent that describes the event that generated this call.
      */
     @Override
     public void keyPressed(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
             startGame = true;
             getCharacter().applyCommand(new JumpCommand());
+        }
+        
+        //Prints the toString() of the character.
+        if(ke.getKeyCode() == KeyEvent.VK_C) {
+            System.out.println(getCharacter());
+        }
+        
+        //Prints the toString() of this.
+        if(ke.getKeyCode() == KeyEvent.VK_E) {
+            System.out.println(this);
         }
     }
 
@@ -175,6 +189,15 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
      */
     public static int time() {
         return newestInstance.getTime();
+    }
+    
+    /**
+     *
+     * @return The string representation for this Environment.
+     */
+    @Override
+    public String toString() {
+        return "";
     }
     
     /**

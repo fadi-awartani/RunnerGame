@@ -1,17 +1,19 @@
 package coe528.project;
 
- /**OVERVIEW: An immutable class that represents a death command being given to a character.
- * 
- * Abstraction Function:
- * A DeathCommand is an object such that it has initial time and an environment object to invoke.
- * 
- * Rep Invariant:
- * (c instanceof RunnerCharacter) || c == null
- * 
- * @author Aaron, Anjalo, Fadi
- */
+ /**
+  * OVERVIEW: An immutable class that represents a death command being given to a character.
+  * 
+  * Abstraction Function:
+  * A DeathCommand is an object such that it has an initiation time and an 
+  * environment object to invoke.
+  * 
+  * Rep Invariant:
+  * c != null && 0 < c.initTime <= Environment.time()
+  * 
+  * @author Aaron, Anjalo, Fadi
+  */
 public class DeathCommand implements ICommand, IObserverSubject {
-    private final EnvironmentObject c;
+    private final RunnerCharacter c;
     private final int initTime;
     
     /**
@@ -34,6 +36,9 @@ public class DeathCommand implements ICommand, IObserverSubject {
      * @param init_time The time that the previous Command calling this method was created.
      */
     private DeathCommand(RunnerCharacter rc, int init_time) {
+        if(rc == null)
+            throw new IllegalArgumentException("Error: Null character attached.");
+        
         initTime = init_time;
         c = rc;
     }
@@ -77,10 +82,7 @@ public class DeathCommand implements ICommand, IObserverSubject {
     }
      
     public boolean repOk(){
-        if((c instanceof RunnerCharacter) || c == null)
-            return true;
-        else 
-            return false;
+        return c != null && initTime <= Environment.time() && initTime > 0;
     }
     
     /**
@@ -89,11 +91,9 @@ public class DeathCommand implements ICommand, IObserverSubject {
      */
     @Override
     public String toString() {
-        if(c instanceof RunnerCharacter)
-            return " A DeathCommand to a RunnerCharacter that has an initial time of" + initTime;
-        else if(c == null)
-            return " An empty DeathCommand that has an initial time of" + initTime;
+        if(c != null)
+            return "A DeathCommand that was initiated at t=" + initTime;
         else
-            return "";     
+            return "An empty DeathCommand that was initiated at t=" + initTime;
     }
 }

@@ -1,17 +1,17 @@
 package coe528.project;
 
 /**
- * Represents an obstacle that the character can collide with.
- * OVERVIEW: Obstacle is an immutable object. A typical Obstacle 
- * would be a rectangle with a height and width of 10. This rectangle is 
- * represented as an image by the imgIndex.
+ * OVERVIEW: A mutable object that represents an obstacle that a RunnerCharacter 
+ * can collide with.
  * 
  * Abstraction Function:
- * An Obstacle is an object that is generated in Environment and is checked for collision each moment. This object also
- * has the x position of the last obstacle.
+ * An Obstacle is an object such that it has bounds (position and size)
+ * that define its existence, as well as an associated image, and has the
+ * property of being able to collide with a RunnerCharacter.
  * 
  * Rep Invariant:
- * lastXPosition > 1350
+ * 1 <= imageIndex <= 3, and
+ * size.x >= 1350, and super.repOk()
  * 
  * @author Aaron, Anjalo, Fadi
  */
@@ -21,63 +21,69 @@ public class Obstacle extends EnvironmentObject {
     /**
      * Creates new obstacle. Sets its x coordinate to a random amount in front of the 
      * most recent obstacle that was created.
-     * REQUIRES: None
+     * REQUIRES: A valid image index.
      * MODIFIES: None
-     * EFFECTS: A rectangle, represented as an image, is created with height and width of 10.
+     * EFFECTS: Initializes instance variables.
      * Bounds are set for each obstacle based on the type of obstacle given in imgIndex.
      * @param imgIndex The image index representing the type of obstacle.
      */
     public Obstacle(int imgIndex) {  
-        super(imgIndex,10,10);
+        super(imgIndex,10,10); //Initializes with a temporary size of 10x10.
         
+        //Initializes the new objects X-position to somewhere between
+        // lastXPosition + 350 <= x < lastXPosition + 850. (randomly chosen)
         int x = lastXPosition + 350 + (int) (Math.random()*500);
-        int y = floorYLocation; //of bottom of object.
+        int y = floorYLocation; //y coordinate of bottom of object (the floor).
         lastXPosition = x;
         
+        //Set the position, and the real size, based on the image index.
         switch(imgIndex) {
-            case EnvironmentObject.OBSTACLE_1:
+            case OBSTACLE_1:
                 size.setBounds(x, y-100, 50, 100);
                 break;
-            case EnvironmentObject.OBSTACLE_2:
+            case OBSTACLE_2:
                 size.setBounds(x, y-100, 75, 100);
                 break;
-            case EnvironmentObject.OBSTACLE_3:
+            case OBSTACLE_3:
                 size.setBounds(x, y-60, 100, 60);
                 break;
             default:
                 throw new IllegalArgumentException("Image index must be an obstacle image.");
         }
     }
+    
+    /**
+     * Checks whether this object is colliding with the given RunnerCharacter.
+     * REQUIRES: rc != null.
+     * MODIFIES: None.
+     * EFFECTS: None.
+     * @param rc The RunnerCharacter to check for collisions.
+     * @return true when there is a collision between both objects being considered.
+     */
+    public boolean isCollidingWith(RunnerCharacter rc) {
+        return size.intersects(rc.size);
+    }
 
     /**
      * Updates the obstacle object.
-     * REQUIRES: ios != null
+     * REQUIRES: ios != null.
      * MODIFIES: None
-     * EFFECTS: Checks whether there is a collision with the main character. If there is collision, the DeathCommand is invoked.
+     * EFFECTS: Checks whether there is a collision with the main character, and 
+     * if there is collision, a DeathCommand is invoked.
      * @param ios The subject object that is updating this observer. 
      */
     @Override
     public void update(IObserverSubject ios) {
         if(ios instanceof Environment) {
             Environment e = (Environment) ios;
-            if(e.getCharacter().isCollidingWith(this))
+            if(this.isCollidingWith(e.getCharacter()))
                 e.getCharacter().applyCommand(new DeathCommand());
         }
     }
         
     public boolean repOk(){
-        if(lastXPosition > 1350)
-            return true;
-        else 
-            return false;
+        return size.x >= 1350 && imageIndex >= 1 && imageIndex <= 3 && super.repOk();
     }
     
-    /**
-     * 
-     * @return The string representation of the object.
-     */
-    @Override
-    public String toString() {
-        return super.toString() + "The last recent obstacle was at " + lastXPosition + " in the x-axis. ";
-    }
+    //toString() is the same as in the parent class, thus, it is not overridden.
 }
