@@ -32,10 +32,11 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     private ArrayList<EnvironmentObject> objects = new ArrayList<>();
     private BufferedImage background, floor, gameover;
     
-    private static int globalTime = 0; //Time since game has started. (in milliseconds)
-    private static long lastFrameTime = 0; //UTC time of last frame processed.
+    private int globalTime = 0; //Time since game has started. (in milliseconds)
+    private long lastFrameTime = 0; //UTC time of last frame processed.
+    private static Environment newestInstance;
     private static boolean gameOver = false;
-    private static boolean startGame = false;
+    private boolean startGame = false;
     private static final Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
     /**
@@ -45,8 +46,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         super();
         objects.add(new RunnerCharacter()); //create main character.
         
-        //initialize environment with 100 obstacles.
-        for(int i = 0; i < 1000; i++) {
+        //Initialize environment with 500 obstacles.
+        for(int i = 0; i < 500; i++) {
             objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));//Random obstacle type.
         }
         
@@ -59,6 +60,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
             System.err.println("Image loading error at Environment");
             System.exit(-1);
         }
+        
+        newestInstance = this;
     }
     
     /**
@@ -159,11 +162,19 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     }
     
     /**
-     * Returns the time since the game has started.
+     * Returns the time since this object was created.
+     * @return The global time variable (in milliseconds).
+     */
+    public int getTime() {
+        return globalTime;
+    }
+    
+    /**
+     * Returns the time since the latest object was created.
      * @return The global time variable (in milliseconds).
      */
     public static int time() {
-        return globalTime;
+        return newestInstance.getTime();
     }
     
     /**
