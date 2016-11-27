@@ -1,17 +1,18 @@
 package coe528.project;
 
 /**
- * OVERVIEW: A mutable object that represents an obstacle that a RunnerCharacter 
- * can collide with.
+ * <p> <b>OVERVIEW:</b><br>
+ * A mutable object that represents an obstacle that a RunnerCharacter 
+ * can collide with.</p>
  * 
- * Abstraction Function:
+ * <p><b>Abstraction Function:</b> <br>
  * An Obstacle is an object such that it has bounds (position and size)
  * that define its existence, as well as an associated image, and has the
- * property of being able to collide with a RunnerCharacter.
+ * property of being able to collide with a RunnerCharacter.</p>
  * 
- * Rep Invariant:
- * 1 <= imageIndex <= 3, and
- * size.x >= 1350, and super.repOk()
+ * <p><b>Rep Invariant:</b> <br>
+ * 1 &le; imageIndex &le; 3, and <br>
+ * size.x &ge; 1350, and super.repOk() </p>
  * 
  * @author Aaron, Anjalo, Fadi
  */

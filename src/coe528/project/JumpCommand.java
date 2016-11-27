@@ -1,14 +1,15 @@
 package coe528.project;
 
 /**
- * OVERVIEW: An immutable class which represents a jump command for a RunnerCharacter.
+ * <p><b>OVERVIEW:</b><br> 
+ * An immutable class which represents a jump command for a RunnerCharacter.</p>
  * 
- * Abstraction Function:
+ * <p><b>Abstraction Function:</b>
  * A JumpCommand is an object such that it has initial time and a RunnerCharacter
- * object to invoke.
+ * object to invoke. </p>
  * 
- * Rep Invariant:
- * c != null && c.initTime <= Environment.time()
+ * <p><b>Rep Invariant:</b> <br>
+ * c != null, and c.initTime &le; Environment.time()</p>
  * 
  * @author Aaron, Anjalo, Fadi
  */
@@ -62,6 +63,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
     
     /**
      * Indicates whether there is a currently active jump command or not.
+     * @return Whether it is ok to create a new JumpCommand.
      */
     public static boolean canJump() {       
         return Environment.time() - latestJumpTime >= jumpDuration;

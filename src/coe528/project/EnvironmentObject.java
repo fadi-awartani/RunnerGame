@@ -7,18 +7,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * OVERVIEW: An abstract mutable class that represents an object that will exist in the environment.
+ * <p><b>OVERVIEW:</b> <br>
+ * An abstract mutable class that represents an object that will exist in the environment.</p>
  * 
- * Abstraction Function:
+ * <p><b>Abstraction Function:</b><br>
  * An EnvironmentObject is an object such that it has bounds (position and size)
- * that define its existence, as well as an associated image.
+ * that define its existence, as well as an associated image.</p>
  * 
- * Rep Invariant:
- * imageIndex <= lengthOf(imgs), and
- * size.x > 0, and
- * size.y > 0, and
- * size.width > 0, and
- * size.height > 0
+ * <p><b>Rep Invariant:</b><br>
+ * imageIndex &le; lengthOf(imgs), and <br>
+ * size.x &gt; 0, and <br>
+ * size.y &gt; 0, and <br>
+ * size.width &gt; 0, and <br>
+ * size.height &gt; 0 </p>
  * 
  * @author Aaron, Anjalo, Fadi
  */
@@ -37,7 +38,7 @@ public abstract class EnvironmentObject {
 
     /**
      * Constructor that must be called from each child of this class. 
-     * REQUIRES: An image index 'image' > 0, and valid size parameters.
+     * REQUIRES: An image index 'image' &ge; 0, and valid size parameters.
      * EFFECTS: Initializes instance variables.
      * MODIFIES: None.
      * @param image Index of image to be used for this object.

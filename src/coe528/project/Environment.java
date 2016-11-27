@@ -16,19 +16,20 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
- * OVERVIEW: This mutable class represents the main visible environment. It contains all objects and draws the graphics.
+ * <p><b>OVERVIEW:</b> <br>
+ * This mutable class represents the main visible environment. It contains all objects and draws the graphics.
  * (This is done by its parent class, JPanel.) This class is an observer for
- * ActionListener and KeyListener, and is a subject for EnvironmentObjects. 
+ * ActionListener and KeyListener, and is a subject for EnvironmentObjects. </p>
  * 
- * Abstraction Function:
+ * <p><b>Abstraction Function:</b> <br>
  * An object such that it contains EnvironmentObjects of type RunnerCharacter
- * and Obstacle.
+ * and Obstacle.</p>
  * 
- * Rep Invariant:
- * globalTime >= 0, and
- * 'objects' contains:
- * at least one RunnerCharacter object, and
- * at least one Obstacle object.
+ * <p><b>Rep Invariant:</b><br>
+ * globalTime &ge; 0, and
+ * 'objects' contains:<br>
+ * at least one RunnerCharacter object, and<br>
+ * at least one Obstacle object.</p>
  * 
  * @author Aaron, Anjalo, Fadi
  */

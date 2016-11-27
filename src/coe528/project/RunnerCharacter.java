@@ -3,15 +3,16 @@ package coe528.project;
 import java.util.ArrayList;
 
 /**
- * OVERVIEW: A mutable class that represents a controllable running character.
+ * <p><b>OVERVIEW:</b> <br>
+ * A mutable class that represents a controllable running character.</p>
  * 
- * Abstraction Function:
+ * <p><b>Abstraction Function:</b> <br>
  * An RunnerCharacter is an object such that it has bounds (position and size)
  * that define its existence, as well as an associated image, and has commands that
- * are applied to it.
+ * are applied to it. </p>
  * 
- * Rep Invariant: 
- * imageIndex = 0, and super.repOk()
+ * <p><b>Rep Invariant:</b> <br> 
+ * imageIndex = 0, and super.repOk() </p>
  * 
  * @author Aaron, Anjalo, Fadi
  */

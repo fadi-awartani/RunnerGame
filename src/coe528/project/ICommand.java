@@ -1,6 +1,7 @@
 package coe528.project;
 
 /**
+ * <b>OVERVIEW:</b> <br>
  * Interface for commands. Based on the Command design pattern.
  * @author Aaron, Anjalo, Fadi
  */

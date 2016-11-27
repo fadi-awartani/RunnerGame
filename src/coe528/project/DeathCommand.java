@@ -1,15 +1,18 @@
 package coe528.project;
 
  /**
-  * OVERVIEW: An immutable class that represents a death command being given to a character.
+  * <p><b>OVERVIEW:</b> <br>
+  * An immutable class that represents a death command being given to a character.</p>
   * 
-  * Abstraction Function:
+  * <p> <b>Abstraction Function:</b><br>
   * A DeathCommand is an object such that it has an initiation time and an 
-  * environment object to invoke.
+  * environment object to invoke.</p>
   * 
-  * Rep Invariant:
-  * c != null && 0 < c.initTime <= Environment.time()
+  * <p><b>Rep Invariant:</b><br>
+  * c != null, and <br>
+  * 0 &lt; c.initTime &le; Environment.time() </p>
   * 
+  * <!-- HTML Comment: Note: &lt; equals '<', and &le; equals '<=' -->
   * @author Aaron, Anjalo, Fadi
   */
 public class DeathCommand implements ICommand, IObserverSubject {
@@ -17,10 +20,10 @@ public class DeathCommand implements ICommand, IObserverSubject {
     private final int initTime;
     
     /**
-     * Creates an empty DeathCommand. A character must attach itself for this object to be useful.
-     * EFFECTS: Initializes instance variables.
-     * MODIFIES: None.
-     * REQUIRES: None.
+     * <p>Creates an empty DeathCommand. A character must attach itself for this object to be useful.</p>
+     * <p>EFFECTS: Initializes instance variables.<br>
+     * MODIFIES: None.<br>
+     * REQUIRES: None.</p>
      */
     public DeathCommand() {
         initTime = Environment.time();
@@ -28,10 +31,10 @@ public class DeathCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Creates a DeathCommand with a RunnerCharacter attached.
-     * EFFECTS: Initializes instance variables.
-     * MODIFIES: None.
-     * REQUIRES: A valid RunnerCharacter object.
+     * <p>Creates a DeathCommand with a RunnerCharacter attached.</p>
+     * <p>EFFECTS: Initializes instance variables.<br>
+     * MODIFIES: None.<br>
+     * REQUIRES: A valid RunnerCharacter object.</p>
      * @param rc The character to add.
      * @param init_time The time that the previous Command calling this method was created.
      */
@@ -44,11 +47,11 @@ public class DeathCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Attaches a character to a clone of this object, and returns the updated object.
-     * EFFECTS: None.
-     * MODIFIES: None.
-     * REQUIRES: A valid RunnerCharacter object.
-     * @param c The character to add.
+     * <p>Attaches a character to a clone of this object, and returns the updated object.</p>
+     * <p>EFFECTS: None.<br>
+     * MODIFIES: None.<br>
+     * REQUIRES: A valid RunnerCharacter object.</p>
+     * @param rc The character to add.
      * @return The updated DeathCommand object.
      */
     @Override
@@ -57,10 +60,10 @@ public class DeathCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Update character attached to this death command.
-     * EFFECTS: The attached RunnerCharacter is updated.
-     * MODIFIES: None.
-     * REQUIRES: A valid RunnerCharacter object.
+     * <p>Update character attached to this death command.</p>
+     * <p>EFFECTS: The attached RunnerCharacter is updated.<br>
+     * MODIFIES: None.<br>
+     * REQUIRES: A valid RunnerCharacter object.</p>
      */
     @Override
     public void execute() {
@@ -70,10 +73,10 @@ public class DeathCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Determines if this command should be taken care of.
-     * EFFECTS: None.
-     * MODIFIES: None.
-     * REQUIRES: None.
+     * <p>Determines if this command should be taken care of.</p>
+     * <p>EFFECTS: None.<br>
+     * MODIFIES: None.<br>
+     * REQUIRES: None.</p>
      * @return Always returns true in this case.
      */
     @Override
