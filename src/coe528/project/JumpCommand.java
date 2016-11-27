@@ -20,11 +20,11 @@ public class JumpCommand implements ICommand, IObserverSubject {
     private final RunnerCharacter c;
     
     /**
-     * Creates an empty JumpCommand. A character must attach itself later,
-     * for this object to be useful.
-     * REQUIRES: None.
-     * MODIFIES: None.
-     * EFFECTS: Initializes instance variables.
+     * <p>Creates an empty JumpCommand. A character must attach itself later,
+     * for this object to be useful.</p>
+     * <p>REQUIRES: None.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: Initializes instance variables.</p>
      */
     public JumpCommand() {  
         initTime = Environment.time();
@@ -33,10 +33,10 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Creates a JumpCommand with a RunnerCharacter attached.
-     * REQUIRES: c != null.
-     * MODIFIES: None.
-     * EFFECTS: Initializes instance variables.
+     * <p>Creates a JumpCommand with a RunnerCharacter attached.</p>
+     * <p>REQUIRES: c != null.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: Initializes instance variables.</p>
      * @param c The character to add.
      * @param initTime The time that the previous JumpCommand calling this method was created.
      */
@@ -49,10 +49,10 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Attaches a character to a clone of this object, and returns the updated object.
-     * REQUIRES: c != null
-     * MODIFIES: None.
-     * EFFECTS: None.
+     * <p>Attaches a character to a clone of this object, and returns the updated object.</p>
+     * <p>REQUIRES: c != null<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: None.</p>
      * @param c The character to add.
      * @return The updated JumpCommand object.
      */
@@ -62,7 +62,10 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Indicates whether there is a currently active jump command or not.
+     * <p>Indicates whether there is a currently active jump command or not.</p>
+     * <p>REQUIRES: None<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: returns true if its ok to create a new JumpCommand.</p>
      * @return Whether it is ok to create a new JumpCommand.
      */
     public static boolean canJump() {       
@@ -70,10 +73,10 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Indicates whether this command is still active or not.
-     * REQUIRES: None.
-     * MODIFIES: None.
-     * EFFECTS: None.
+     * <p>Indicates whether this command is still active or not</p>
+     * <p>REQUIRES: None.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: None.</p>
      * @return Returns true if the command is active.
      */
     @Override
@@ -82,11 +85,11 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Gives the current height of the jumper corresponding to the time elapsed.
-     * The jump animation is approximated by half of a sine period.
-     * REQUIRES: This object to be currently active.
-     * MODIFIES: None.
-     * EFFECTS: None.
+     * <p>Gives the current height of the jumper corresponding to the time elapsed.
+     * The jump animation is approximated by half of a sine period.</p>
+     * <p>REQUIRES: This object to be currently active.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: None.</p>
      * @return The current height of the jump in units of pixels. 
      */
     public int getHeight() {
@@ -109,10 +112,10 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * Updates the character attached to this command.
-     * REQUIRES: None
-     * MODIFIES: None
-     * EFFECTS: Updates the attached RunnerCharacter.
+     * <p>Updates the character attached to this command.</p>
+     * <p>REQUIRES: None<br>
+     * MODIFIES: None<br>
+     * EFFECTS: Updates the attached RunnerCharacter.</p>
      */
     @Override
     public void execute(){   
