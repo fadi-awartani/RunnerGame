@@ -5,12 +5,14 @@
  */
 package coe528.project;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 /**
  *
  * @author Aaron
@@ -18,10 +20,12 @@ import static org.junit.Assert.*;
 public class RunnerCharacterTest {
     
     public RunnerCharacterTest() {
+        Environment a = new Environment();
     }
     
     @BeforeClass
     public static void setUpClass() {
+        Environment a = new Environment();
     }
     
     @AfterClass
@@ -30,77 +34,50 @@ public class RunnerCharacterTest {
     
     @Before
     public void setUp() {
+        Environment a = new Environment();
     }
     
     @After
     public void tearDown() {
     }
     
+
+
     /**
      * Test of update method, of class RunnerCharacter.
-     * Test Jump Command where ios = JumpCommand
-     * whitebox
+     * Case if the command was a jump command;
      */
     @Test
-    public void testUpdateJump() {
+    public void testCase7() {
         System.out.println("update");
         IObserverSubject ios = new JumpCommand();
         RunnerCharacter instance = new RunnerCharacter();
-        instance.update(ios);
+        ArrayList<ICommand> cmds = new ArrayList<>();
+        cmds.add(new JumpCommand());
         
-           if(ios instanceof JumpCommand) {
-             System.out.println("Good");;
-        }
-        
-
-    }
-    /**
-     * Test of update method, of class RunnerCharacter.
-     * Test Death Command where ios = DeathCommand
-     * whitebox
-     */
-    @Test
-    public void testUpdateDeath() {
-        System.out.println("update");
-        IObserverSubject ios = new DeathCommand();
-        RunnerCharacter instance = new RunnerCharacter();
-        instance.update(ios);
-        
-        if(ios instanceof DeathCommand) {
-             System.out.println("Good");;
+        if (cmds.get(0) == instance.getIObserverSubject()) {
+        boolean test = true;
         }
 
     }
     
     /**
      * Test of update method, of class RunnerCharacter.
-     * Test Death Command where ios = null
-     * whitebox
+     * Case if the command was a death command;
      */
     @Test
-    public void testUpdateInvalid() {
-        System.out.println("update");
-        IObserverSubject ios = null;
+    public void testCase8() {
+        System.out.println("Test Case 8");
+        IObserverSubject ios = new DeathCommand();
         RunnerCharacter instance = new RunnerCharacter();
+        ArrayList<ICommand> cmds = new ArrayList<>();
+        cmds.add(new DeathCommand());
         
-        if (!(ios instanceof Environment)) {
-            System.out.println("Good");;
+        if (cmds.get(0) == instance.getIObserverSubject()) {
+        boolean test = true;
+        instance.update(ios);
         }
-            
-    }
 
-    /**
-     * Test of isCollidingWith method, of class RunnerCharacter.
-     * In the case that Obstacle ob = null;
-     */
-    @Test
-    public void testIsCollidingWithInvalid() {
-        System.out.println("isCollidingWith");
-        Obstacle ob = null;
-        RunnerCharacter instance = new RunnerCharacter();
-        boolean expResult = false;
-        boolean result = instance.isCollidingWith(ob);
-        assertEquals(expResult, result);
     }
     
     /**
@@ -108,11 +85,11 @@ public class RunnerCharacterTest {
      * In the case that Obstacle ob = new Obstacle();
      */
     @Test
-    public void testIsCollidingWith() {
-        System.out.println("isCollidingWith");
+    public void testCase9() {
+        System.out.println("Test Case 9");
         Obstacle ob = new Obstacle(1);
         RunnerCharacter instance = new RunnerCharacter();
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.isCollidingWith(ob);
         assertEquals(expResult, result);
     }
