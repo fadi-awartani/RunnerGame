@@ -23,9 +23,9 @@ public class RunnerCharacter extends EnvironmentObject {
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     /**
-     * EFFECTS: Initializes instance variables.
-     * REQUIRES: None
-     * MODIFIES: None
+     * <p>EFFECTS: Initializes instance variables.</br>
+     * REQUIRES: None<br>
+     * MODIFIES: None</p>
      */
     public RunnerCharacter() {
         super(EnvironmentObject.MAIN_CHAR, charWidth, charHeight);
@@ -33,11 +33,11 @@ public class RunnerCharacter extends EnvironmentObject {
     }
     
     /**
-     * Updates the character based on who requested the update.
-     * REQUIRES: ios != null.
+     * <p>Updates the character based on who requested the update.</p>
+     * <p>REQUIRES: ios != null.<br>
      * MODIFIES: Position of this object, if ios is an Environment or JumpCommand. 
-     *           Modifies the game state if ios is a DeathCommand.
-     * EFFECTS: Game state, position of this.
+     *           Modifies the game state if ios is a DeathCommand.<br>
+     * EFFECTS: Game state, position of this.</p>
      * @param ios The subject for this observer, who called this function.
      */
     @Override
@@ -75,10 +75,10 @@ public class RunnerCharacter extends EnvironmentObject {
     }
     
     /**
-     * Applies command to be done to the character.
-     * REQUIRES: c != null
-     * MODIFIES: None.
-     * EFFECTS: Adds the given command to the command array.
+     * <p>Applies command to be done to the character.</p>
+     * <p>REQUIRES: c != null<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: Adds the given command to the command array.</p>
      * @param c The command object.
      */
     public void applyCommand(ICommand c) {

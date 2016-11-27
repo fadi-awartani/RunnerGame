@@ -37,10 +37,10 @@ public abstract class EnvironmentObject {
     final protected int imageIndex;
 
     /**
-     * Constructor that must be called from each child of this class. 
-     * REQUIRES: An image index 'image' &ge; 0, and valid size parameters.
-     * EFFECTS: Initializes instance variables.
-     * MODIFIES: None.
+     * <p>Constructor that must be called from each child of this class.</p> 
+     * <p>REQUIRES: An image index 'image' &ge; 0, and valid size parameters.<br>
+     * EFFECTS: Initializes instance variables.<br>
+     * MODIFIES: None.</p>
      * @param image Index of image to be used for this object.
      * @param width Width of bounds of object, in pixels.
      * @param height Height of bounds of object, in pixels.
@@ -59,10 +59,10 @@ public abstract class EnvironmentObject {
     public abstract void update(IObserverSubject ios);
     
     /**
-    * Draws the environment object onto a graphics canvas.
-    * REQUIRES: A valid Graphics2D object, g.
-    * MODIFIES: g.
-    * EFFECTS: The image associated with this object is drawn on g. 
+    *<p>Draws the environment object onto a graphics canvas.</p>
+    * <p>REQUIRES: A valid Graphics2D object, g.<br>
+    * MODIFIES: g.<br>
+    * EFFECTS: The image associated with this object is drawn on g.<br> 
     * @param g The graphics object to draw the EnvrionmentObject on.
     */
     public void draw(Graphics2D g) {
@@ -75,11 +75,11 @@ public abstract class EnvironmentObject {
     }
     
     /**
-    * This method initializes the static images array.
-    * REQUIRES: None.
-    * MODIFIES: The static image array for this class.
+    * <p>This method initializes the static images array.</p>
+    * <p>REQUIRES: None.<br>
+    * MODIFIES: The static image array for this class.<br>
     * EFFECTS: Load the array imgs with images of different types of 
-    * EnvironmentObjects.
+    * EnvironmentObjects.</p>
     */
     public static void loadImages() {
         try {

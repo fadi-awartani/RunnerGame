@@ -20,12 +20,12 @@ public class Obstacle extends EnvironmentObject {
     private static int lastXPosition = 1000;
     
     /**
-     * Creates new obstacle. Sets its x coordinate to a random amount in front of the 
-     * most recent obstacle that was created.
-     * REQUIRES: A valid image index.
-     * MODIFIES: None
-     * EFFECTS: Initializes instance variables.
-     * Bounds are set for each obstacle based on the type of obstacle given in imgIndex.
+     * <p>Creates new obstacle. Sets its x coordinate to a random amount in front of the 
+     * most recent obstacle that was created.</p>
+     * <p>REQUIRES: A valid image index.<br>
+     * MODIFIES: None<br>
+     * EFFECTS: Initializes instance variables.</p>
+     * <p>Bounds are set for each obstacle based on the type of obstacle given in imgIndex.</p>
      * @param imgIndex The image index representing the type of obstacle.
      */
     public Obstacle(int imgIndex) {  
@@ -54,10 +54,10 @@ public class Obstacle extends EnvironmentObject {
     }
     
     /**
-     * Checks whether this object is colliding with the given RunnerCharacter.
-     * REQUIRES: rc != null.
-     * MODIFIES: None.
-     * EFFECTS: None.
+     * <p>Checks whether this object is colliding with the given RunnerCharacter.</p>
+     * <p>REQUIRES: rc != null.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: None.</p>
      * @param rc The RunnerCharacter to check for collisions.
      * @return true when there is a collision between both objects being considered.
      */
@@ -66,11 +66,11 @@ public class Obstacle extends EnvironmentObject {
     }
 
     /**
-     * Updates the obstacle object.
-     * REQUIRES: ios != null.
-     * MODIFIES: None
+     * <p>Updates the obstacle object.</p>
+     * <p>REQUIRES: ios != null.<br>
+     * MODIFIES: None<br>
      * EFFECTS: Checks whether there is a collision with the main character, and 
-     * if there is collision, a DeathCommand is invoked.
+     * if there is collision, a DeathCommand is invoked.</p>
      * @param ios The subject object that is updating this observer. 
      */
     @Override
