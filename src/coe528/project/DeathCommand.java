@@ -1,16 +1,17 @@
 package coe528.project;
 
-/**
- * OVERVIEW: An immutable class that represents a death command being given to a character.
+ /**OVERVIEW: An immutable class that represents a death command being given to a character.
  * 
  * Abstraction Function:
+ * A DeathCommand is an object such that it has initial time and an environment object to invoke.
  * 
  * Rep Invariant:
+ * (c instanceof RunnerCharacter) || c == null
  * 
  * @author Aaron, Anjalo, Fadi
  */
 public class DeathCommand implements ICommand, IObserverSubject {
-    private final RunnerCharacter c;
+    private final EnvironmentObject c;
     private final int initTime;
     
     /**
@@ -73,5 +74,26 @@ public class DeathCommand implements ICommand, IObserverSubject {
     @Override
     public boolean isActive() {
         return true;
+    }
+     
+    public boolean repOk(){
+        if((c instanceof RunnerCharacter) || c == null)
+            return true;
+        else 
+            return false;
+    }
+    
+    /**
+     * 
+     * @return The string representation of the object.
+     */
+    @Override
+    public String toString() {
+        if(c instanceof RunnerCharacter)
+            return " A DeathCommand to a RunnerCharacter that has an initial time of" + initTime;
+        else if(c == null)
+            return " An empty DeathCommand that has an initial time of" + initTime;
+        else
+            return "";     
     }
 }

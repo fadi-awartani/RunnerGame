@@ -2,29 +2,32 @@ package coe528.project;
 
 /**
  * Represents an obstacle that the character can collide with.
- * Abstraction Function:
+ * OVERVIEW: Obstacle is an immutable object. A typical Obstacle 
+ * would be a rectangle with a height and width of 10. This rectangle is 
+ * represented as an image by the imgIndex.
  * 
+ * Abstraction Function:
+ * An Obstacle is an object that is generated in Environment and is checked for collision each moment. This object also
+ * has the x position of the last obstacle.
  * 
  * Rep Invariant:
- * 
+ * lastXPosition > 1350
  * 
  * @author Aaron, Anjalo, Fadi
  */
 public class Obstacle extends EnvironmentObject {
-    //OVERVIEW: Obstacle is an immutable object. A typical Obstacle 
-    //would be a rectangle with a height and width of 10. This rectangle is 
-    //represented as an image by the imgIndex.
-    
     private static int lastXPosition = 1000;
     
     /**
      * Creates new obstacle. Sets its x coordinate to a random amount in front of the 
      * most recent obstacle that was created.
+     * REQUIRES: None
+     * MODIFIES: None
+     * EFFECTS: A rectangle, represented as an image, is created with height and width of 10.
+     * Bounds are set for each obstacle based on the type of obstacle given in imgIndex.
      * @param imgIndex The image index representing the type of obstacle.
      */
-    public Obstacle(int imgIndex) {
-    //EFFECTS: A rectangle, represented as an image, is created with height and width of 10.
-    //Bounds are set for each obstacle based on the type of obstacle given in imgIndex.    
+    public Obstacle(int imgIndex) {  
         super(imgIndex,10,10);
         
         int x = lastXPosition + 350 + (int) (Math.random()*500);
@@ -47,20 +50,34 @@ public class Obstacle extends EnvironmentObject {
     }
 
     /**
-     * Updates the obstacle object; Checks whether there is a collision with the
-     * main character.
+     * Updates the obstacle object.
+     * REQUIRES: ios != null
+     * MODIFIES: None
+     * EFFECTS: Checks whether there is a collision with the main character. If there is collision, the DeathCommand is invoked.
      * @param ios The subject object that is updating this observer. 
      */
     @Override
     public void update(IObserverSubject ios) {
-    //REQUIRES: ios != null
-    //EFFECTS: This first checks if ios is an instance of the Enviorment class. Then
-    //it checks if the runner character object is colliding with this obstacle. Then it calls
-    //the RunnerCharacter to invoke the DeathCommand() in applyCommand()
         if(ios instanceof Environment) {
             Environment e = (Environment) ios;
             if(e.getCharacter().isCollidingWith(this))
                 e.getCharacter().applyCommand(new DeathCommand());
         }
+    }
+        
+    public boolean repOk(){
+        if(lastXPosition > 1350)
+            return true;
+        else 
+            return false;
+    }
+    
+    /**
+     * 
+     * @return The string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "The last recent obstacle was at " + lastXPosition + " in the x-axis. ";
     }
 }
