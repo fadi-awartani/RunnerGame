@@ -20,12 +20,10 @@ import static org.junit.Assert.*;
 public class RunnerCharacterTest {
     
     public RunnerCharacterTest() {
-        Environment a = new Environment();
     }
     
     @BeforeClass
     public static void setUpClass() {
-        Environment a = new Environment();
     }
     
     @AfterClass
@@ -34,64 +32,103 @@ public class RunnerCharacterTest {
     
     @Before
     public void setUp() {
-        Environment a = new Environment();
     }
     
     @After
     public void tearDown() {
     }
-    
-
 
     /**
      * Test of update method, of class RunnerCharacter.
-     * Case if the command was a jump command;
+     */
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        IObserverSubject ios = null;
+        RunnerCharacter instance = new RunnerCharacter();
+        instance.update(ios);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of applyCommand method, of class RunnerCharacter.
+     */
+    @Test
+    public void testApplyCommand() {
+        System.out.println("applyCommand");
+        ICommand c = null;
+        RunnerCharacter instance = new RunnerCharacter();
+        instance.applyCommand(c);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of repOk method, of class RunnerCharacter.
+     */
+    @Test
+    public void testRepOk() {
+        System.out.println("repOk");
+        RunnerCharacter instance = new RunnerCharacter();
+        boolean expResult = false;
+        boolean result = instance.repOk();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class RunnerCharacter.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        RunnerCharacter instance = new RunnerCharacter();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+   /**
+     * Test of update method, of class RunnerCharacter.
+     * Test Jump Command where ios = JumpCommand
+     * whitebox
      */
     @Test
     public void testCase7() {
-        System.out.println("update");
+        System.out.println("Test Case 7");
+        Environment instance = new Environment();
+        RunnerCharacter rc = new RunnerCharacter();
         IObserverSubject ios = new JumpCommand();
-        RunnerCharacter instance = new RunnerCharacter();
+       
         ArrayList<ICommand> cmds = new ArrayList<>();
         cmds.add(new JumpCommand());
-        
-        if (cmds.get(0) == instance.getIObserverSubject()) {
-        boolean test = true;
+ 
+           if(cmds.get(0) instanceof JumpCommand) {
+             boolean test = true;
         }
-
     }
-    
-    /**
+
+   /**
      * Test of update method, of class RunnerCharacter.
-     * Case if the command was a death command;
+     * Test Jump Command where ios = DeathCommand
+     * whitebox
      */
     @Test
     public void testCase8() {
         System.out.println("Test Case 8");
+        Environment instance = new Environment();
+        RunnerCharacter rc = new RunnerCharacter();
         IObserverSubject ios = new DeathCommand();
-        RunnerCharacter instance = new RunnerCharacter();
+        rc.update(ios);
         ArrayList<ICommand> cmds = new ArrayList<>();
         cmds.add(new DeathCommand());
-        
-        if (cmds.get(0) == instance.getIObserverSubject()) {
-        boolean test = true;
-        instance.update(ios);
+ 
+           if(cmds.get(0) instanceof DeathCommand) {
+             boolean test = true;
         }
+    }
 
-    }
-    
-    /**
-     * Test of isCollidingWith method, of class RunnerCharacter.
-     * In the case that Obstacle ob = new Obstacle();
-     */
-    @Test
-    public void testCase9() {
-        System.out.println("Test Case 9");
-        Obstacle ob = new Obstacle(1);
-        RunnerCharacter instance = new RunnerCharacter();
-        boolean expResult = false;
-        boolean result = instance.isCollidingWith(ob);
-        assertEquals(expResult, result);
-    }
-    
 }
