@@ -112,14 +112,20 @@ public class JumpCommand implements ICommand, IObserverSubject {
     }
     
     /**
-     * <p>Updates the character attached to this command.</p>
+     * <p>Updates the character attached to this command, if command is
+     * active.</p>
      * <p>REQUIRES: None<br>
      * MODIFIES: None<br>
      * EFFECTS: Updates the attached RunnerCharacter.</p>
+     * @return Whether the command has executed or not.
      */
     @Override
-    public void execute(){   
-        c.update(this);
+    public boolean execute(){
+        if(isActive()) {
+            c.update(this);
+            return true;
+        }
+        return false;
     }
     
     public boolean repOk(){

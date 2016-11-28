@@ -18,10 +18,10 @@ import java.util.ArrayList;
  */
 public class RunnerCharacter extends EnvironmentObject {
     private static final int charWidth = 40, charHeight = 80;
-    public static final int baseSpeed = 500; //pixels/sec 
-    
+    public static final int baseSpeed = 500; //pixels/sec
     
     private  ArrayList<ICommand> cmds = new ArrayList<>();
+    private int currentSpeed = 500;
     
     /**
      * <p>EFFECTS: Initializes instance variables.<br>
@@ -45,21 +45,20 @@ public class RunnerCharacter extends EnvironmentObject {
     public void update(IObserverSubject ios) {
         //Update position
         if(ios instanceof Environment) {
-            int addX = (baseSpeed + (int)((Environment.time()/15000.0)*100))/60;
+            currentSpeed = baseSpeed + (int)((Environment.time()/15000.0)*100);
+            int addX = currentSpeed/60;
             size.translate(addX, 0);
             cameraXLocation += addX;
             
-            boolean commandActive = false;
-            //Run all commands if active.
+            boolean commandRan = false;
+            //Run all commands.
             for(ICommand c : cmds) {
-                if(c.isActive()) {
-                    commandActive = true;
-                    c.execute();
-                }
+                if(c.execute()) //Executes command.
+                    commandRan = true;
             }
             
-            //Set y-location of character to 0 if no command was active.
-            if(!commandActive)
+            //Set y-location of character to 0 if no command ran.
+            if(!commandRan)
                 size.setLocation((int) size.getX(), floorYLocation - charHeight);
         }
         
@@ -84,6 +83,17 @@ public class RunnerCharacter extends EnvironmentObject {
      */
     public void applyCommand(ICommand c) {
         cmds.add(c.addCharacter(this));
+    }
+    
+    /**
+     * <p>Returns the current speed of the character.</p>
+     * <p>REQUIRES: None.<br>
+     * MODIFIES: None.<br>
+     * EFFECTS: None.</p>
+     * @return The current speed of the character, in pixels/sec.
+     */
+    public int getCurrentSpeed() {
+        return currentSpeed;
     }
     
     public boolean repOk(){

@@ -6,7 +6,7 @@ package coe528.project;
  * @author Aaron, Anjalo, Fadi
  */
 public interface ICommand {
-    public void execute();
+    public boolean execute();
     public boolean isActive();
     public ICommand addCharacter(RunnerCharacter rc);
 }

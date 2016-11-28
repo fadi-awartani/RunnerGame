@@ -64,12 +64,15 @@ public class DeathCommand implements ICommand, IObserverSubject {
      * <p>EFFECTS: The attached RunnerCharacter is updated.<br>
      * MODIFIES: None.<br>
      * REQUIRES: A valid RunnerCharacter object.</p>
+     * @return Whether the command was executed or not.
      */
     @Override
-    public void execute() {
+    public boolean execute() {
         if(c != null) {
             c.update(this);
+            return true;
         }
+        return false;
     }
     
     /**

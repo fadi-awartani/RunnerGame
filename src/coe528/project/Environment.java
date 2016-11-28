@@ -38,6 +38,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     private BufferedImage background, floor, gameover;
     
     private int globalTime = 0; //Time since game has started. (in milliseconds)
+    private int floorX = 0;
     private long lastFrameTime = 0; //UTC time of last frame processed.
     private static Environment newestInstance;
     private static boolean gameOver = false;
@@ -99,7 +100,13 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);//Turn anti-aliasing on for text.
         
         g.drawImage(background, 0, 0, null);
-        g.drawImage(floor, 0, 410, null);
+        
+        //Draw floor and make it move with the character.
+        if(startGame && !gameOver)
+            floorX += getCharacter().getCurrentSpeed()/60;
+        int x1 = (floorX % 960)*-1;
+        g.drawImage(floor, x1, 410, null);
+        g.drawImage(floor, x1+960, 410, null);
         
         //Main Menu
        if (!startGame) { 
