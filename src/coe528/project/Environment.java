@@ -163,8 +163,11 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
      */
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
             startGame = true;
+        }
+        
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE && JumpCommand.canJump()){
             getCharacter().applyCommand(new JumpCommand());
         }
         
