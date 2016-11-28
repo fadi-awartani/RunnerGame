@@ -50,20 +50,26 @@ public class Obstacle extends EnvironmentObject {
         lastXPosition = x;
         int y = floorYLocation; //y coordinate of bottom of object (the floor).
         
+        int width = 0, height = 0, padding = 5;
         //Set the position, and the real size, based on the image index.
         switch(imgIndex) {
             case OBSTACLE_1:
-                size.setBounds(x, y-100, 50, 100);
+                width = 50; height = 100;
                 break;
             case OBSTACLE_2:
-                size.setBounds(x, y-100, 75, 100);
+                width = 75; height = 100;
                 break;
             case OBSTACLE_3:
-                size.setBounds(x, y-60, 100, 60);
+                width = 100; height = 60;
                 break;
             default:
                 throw new IllegalArgumentException("Image index must be an obstacle image.");
         }
+        
+        size.setBounds(x + padding, 
+                y-height + padding, 
+                width - padding*2, 
+                height - padding*2);
     }
     
     /**
