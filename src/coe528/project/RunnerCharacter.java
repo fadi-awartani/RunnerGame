@@ -24,7 +24,7 @@ public class RunnerCharacter extends EnvironmentObject {
     private  ArrayList<ICommand> cmds = new ArrayList<>();
     
     /**
-     * <p>EFFECTS: Initializes instance variables.</br>
+     * <p>EFFECTS: Initializes instance variables.<br>
      * REQUIRES: None<br>
      * MODIFIES: None</p>
      */
