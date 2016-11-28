@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Aaron
+ * Test cases for EnvironmentObjectTest class.
+ * @author Aaron, Anjalo, Fadi
  */
 public class EnvironmentObjectTest {
 
