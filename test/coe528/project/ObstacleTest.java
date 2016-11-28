@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Aaron
+ * Test cases for ObstacleTest class.
+ * @author Aaron, Anjalo, Fadi
  */
 public class ObstacleTest {
     
@@ -21,8 +16,8 @@ public class ObstacleTest {
      * Test of isCollidingWith method, of class Obstacle.
      */
     @Test
-    public void testCase3() {
-        System.out.println("Test Case 3");
+    public void testCase7() {
+        System.out.println("Test Case 7");
         RunnerCharacter rc = new RunnerCharacter();
         Obstacle instance = new Obstacle(Obstacle.OBSTACLE_1, 100);
         
@@ -35,8 +30,8 @@ public class ObstacleTest {
      * Black box (imgIndex != OBSTACLE_1,OBSTACLE_2,OBSTACLE_3)
      */
     @Test (expected = IllegalArgumentException.class)
-    public void testCase10() {
-        System.out.println("Test Case 10");
+    public void testCase8() {
+        System.out.println("Test Case 8");
         Obstacle test = new Obstacle(4);
     }
 }
