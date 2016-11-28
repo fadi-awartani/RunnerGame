@@ -54,30 +54,6 @@ public class EnvironmentTest {
             fail("Timer is off by more than 5 ms. (" + result + " vs " + expResult + ")");
         
     }
-
-    /**
-     * Check that a valid RunnerCharacter is attached.
-     */
-    @Test
-    public void testCase2() {
-        System.out.println("Test Case 2");
-        
-        if(!instance.getCharacter().repOk())
-            fail("Invalid Runner Character");
-    }
-    
-    /**
-     * 
-=======
-        instance = new Environment();
-        JumpCommand jc = new JumpCommand();
-        jc.addCharacter(instance.getCharacter());
-        instance.keyPressed(spacebarEntered); //Start game
-
-        assertTrue(instance.isStart());
-
-        
-    }
     
 
 
@@ -86,8 +62,8 @@ public class EnvironmentTest {
      * Check that it will be game over when the RunnerCharacter dies.
      */
     @Test
-    public void testCase3() throws InterruptedException {
-        System.out.println("Test Case 3");
+    public void testCase2() {
+        System.out.println("Test Case 2");
         instance = new Environment();
             RunnerCharacter character = instance.getCharacter();
             character.applyCommand(new DeathCommand());
@@ -97,11 +73,29 @@ public class EnvironmentTest {
                 fail("It is not yet game over.");
             }
             assertTrue(instance.isGameOver());
+ 
     }
-    
+    /**
+     * Check that a valid RunnerCharacter is attached.
+     */
+    @Test
+    public void testCase3() {
+        System.out.println("Test Case 3");
+        
+        if(!instance.getCharacter().repOk())
+            fail("Invalid Runner Character");
+    }
+
+    /**
+     * Check that the game will start when SPACE is entered. 
+     */
     @Test
     public void testCase4() {
         System.out.println("Test Case 4");
+        instance = new Environment();
+       
+        instance.keyPressed(spacebarEntered); //Start game (and timing mechanism).
+        assertTrue(instance.isStart());    
     }
     
      /**
