@@ -56,11 +56,16 @@ public class EnvironmentTest {
     }
 
     /**
+<<<<<<< HEAD
      * Check that a valid RunnerCharacter is attached.
+=======
+     * Check that the game will start when SPACE is entered. 
+>>>>>>> refs/remotes/origin/Aaron
      */
     @Test
     public void testCase2() {
         System.out.println("Test Case 2");
+<<<<<<< HEAD
         
         if(!instance.getCharacter().repOk())
             fail("Invalid Runner Character");
@@ -68,21 +73,56 @@ public class EnvironmentTest {
     
     /**
      * 
+=======
+        instance = new Environment();
+        JumpCommand jc = new JumpCommand();
+        jc.addCharacter(instance.getCharacter());
+        instance.keyPressed(spacebarEntered); //Start game
+
+        assertTrue(instance.isStart());
+
+        
+    }
+    
+
+
+
+    /**
+     * Check that it will be game over when the RunnerCharacter dies.
+>>>>>>> refs/remotes/origin/Aaron
      */
     @Test
     public void testCase3() throws InterruptedException {
         System.out.println("Test Case 3");
+<<<<<<< HEAD
         
         
     }
+=======
+        instance = new Environment();
+            RunnerCharacter character = instance.getCharacter();
+            character.applyCommand(new DeathCommand());
+            character.update(new DeathCommand());
+            
+            if (instance.isGameOver() == false) {
+                fail("It is not yet game over.");
+            }
+            assertTrue(instance.isGameOver());
+>>>>>>> refs/remotes/origin/Aaron
  
+    }
     /**
+<<<<<<< HEAD
      * 
+=======
+     * Check that a valid RunnerCharacter is attached.
+>>>>>>> refs/remotes/origin/Aaron
      */
     @Test
     public void testCase4() {
         System.out.println("Test Case 4");
         
+<<<<<<< HEAD
     }
     
      /**
@@ -91,6 +131,20 @@ public class EnvironmentTest {
     @Test
     public void testCase5() {
         System.out.println("Test Case 5");
+=======
+        if(!instance.getCharacter().repOk())
+            fail("Invalid Runner Character");
+    }
+
+
+    /**
+     * 
+     */
+    @Test
+    public void testCase5() throws InterruptedException {
+        System.out.println("Test Case 3");
+        
+>>>>>>> refs/remotes/origin/Aaron
         
     }
  
@@ -99,7 +153,33 @@ public class EnvironmentTest {
      */
     @Test
     public void testCase6() {
+<<<<<<< HEAD
         System.out.println("Test Case 6");
         
     }
+=======
+        System.out.println("Test Case 4");
+        
+    }
+    
+     /**
+     * 
+     */
+    @Test
+    public void testCase7() {
+        System.out.println("Test Case 5");
+        
+    }
+ 
+    /**
+     * 
+     */
+    @Test
+    public void testCase8() {
+        System.out.println("Test Case 6");
+        
+    }
+
+
+>>>>>>> refs/remotes/origin/Aaron
 }
