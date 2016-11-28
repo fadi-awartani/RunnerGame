@@ -46,7 +46,7 @@ public class RunnerCharacter extends EnvironmentObject {
         //Update position
         if(ios instanceof Environment) {
             int addX = (baseSpeed + (int)((Environment.time()/15000.0)*100))/60;
-            size.translate(addX, 0); //TODO: Add 
+            size.translate(addX, 0);
             cameraXLocation += addX;
             
             boolean commandActive = false;

@@ -1,280 +1,144 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package coe528.project;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
+import java.awt.Button;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
- *
- * @author Aaron
+ * Test cases for EnvironmentTest class.
+ * @author Aaron, Anjalo, Fadi
  */
 public class EnvironmentTest {
+    
+    private KeyEvent spacebarEntered = new KeyEvent(new Button(), KeyEvent.KEY_PRESSED, 0, 0,
+        KeyEvent.VK_SPACE, KeyEvent.CHAR_UNDEFINED);
+    
+    Environment instance;
     
     public EnvironmentTest() {
         
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
+        EnvironmentObject.loadImages();
+        instance = new Environment();
     }
     
     @After
     public void tearDown() {
+        instance.close();
+        instance = null;
+        System.gc();//start garbage collection
     }
  
     /**
-     * Check that initial score is 0
+     * Check that the timing mechanism is working.
      */
     @Test
-    public void testCase1() {
+    public void testCase1() throws InterruptedException {
         System.out.println("Test Case 1");
-        Environment instance = new Environment();
-        int expResult = 0;
+        instance.keyPressed(spacebarEntered); //Start game (and timing mechanism).
+        instance.actionPerformed(null);
+        Thread.sleep(50);
+        instance.actionPerformed(null);
+        
+        int expResult = 50;
         int result = instance.getTime();
-        assertEquals(expResult, result/500);
+        
+        if(Math.abs(result - expResult) > 5)
+            fail("Timer is off by more than 5 ms. (" + result + " vs " + expResult + ")");
+        
     }
     
     /**
-     * Check that initial global time is 0
+     * Check that the game will start when SPACE is entered. 
      */
     @Test
     public void testCase2() {
         System.out.println("Test Case 2");
-        Environment instance = new Environment();
-        int expResult = 0;
-        int result = instance.getTime();
-        assertEquals(expResult, result);
+        instance = new Environment();
+        JumpCommand jc = new JumpCommand();
+        jc.addCharacter(instance.getCharacter());
+        instance.keyPressed(spacebarEntered); //Start game
+
+        assertTrue(instance.isStart());
+
+        
     }
+    
+
+
 
     /**
-     * Check that the runner character will be of object RunnerCharacter
+     * Check that it will be game over when the RunnerCharacter dies.
      */
     @Test
     public void testCase3() {
         System.out.println("Test Case 3");
-        Environment instance = new Environment();
-        ArrayList<EnvironmentObject> objects = new ArrayList<>();
-        objects.add(new RunnerCharacter());
-        
-        if(objects.get(0) instanceof RunnerCharacter) {
-            boolean test = true;
-        } else
-            fail("Not a Runner Character");
-    }
+        instance = new Environment();
+            RunnerCharacter character = instance.getCharacter();
+            character.applyCommand(new DeathCommand());
+            character.update(new DeathCommand());
+            
+            if (instance.isGameOver() == false) {
+                fail("It is not yet game over.");
+            }
+            assertTrue(instance.isGameOver());
  
+    }
     /**
-     * Check that the runner character will NOT be of object RunnerCharacter
+     * Check that a valid RunnerCharacter is attached.
      */
     @Test
     public void testCase4() {
         System.out.println("Test Case 4");
-        Environment instance = new Environment();
         
-        if (instance instanceof Environment) {
-        ArrayList<EnvironmentObject> objects = new ArrayList<>();
-        objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));
-        
-        if(objects.get(0) instanceof RunnerCharacter) {
-            fail("");
-        } 
-        else {
-             boolean test = true;
-        }
-       }    
+        if(!instance.getCharacter().repOk())
+            fail("Invalid Runner Character");
     }
-    
-     /**
-     * Check that the obstacle will be of object obstacle
+
+
+    /**
+     * 
      */
     @Test
-    public void testCase5() {
-        System.out.println("Test Case 5");
-        Environment instance = new Environment();
-        if (instance instanceof Environment) {
-            ArrayList<EnvironmentObject> objects = new ArrayList<>();
-            objects.add(new RunnerCharacter());
-            objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));
+    public void testCase5() throws InterruptedException {
+        System.out.println("Test Case 3");
         
-            if(objects.get(1) instanceof Obstacle) {
-                boolean test = true; 
-            }
-        }
-                
+        
     }
  
     /**
-     * Check that the obstacle will NOT be of object obstacle
+     * 
      */
     @Test
     public void testCase6() {
-        System.out.println("Test Case 6");
-        Environment instance = new Environment();
-        if (instance instanceof Environment) {
-            ArrayList<EnvironmentObject> objects = new ArrayList<>();
-            objects.add(new RunnerCharacter());
-            objects.add(new RunnerCharacter());
+        System.out.println("Test Case 4");
         
-            if(objects.get(1) instanceof Obstacle) {
-                fail("");
-            }
-            else {
-                boolean test = true;
-            }
-        }
-                
     }
-
-    /**
-     * Test of paintComponent method, of class Environment.
-     */
-    @Test
-    public void testPaintComponent() {
-        System.out.println("paintComponent");
-        Graphics g2 = null;
-        Environment instance = new Environment();
-        instance.paintComponent(g2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of actionPerformed method, of class Environment.
-     */
-    @Test
-    public void testActionPerformed() {
-        System.out.println("actionPerformed");
-        ActionEvent ae = null;
-        Environment instance = new Environment();
-        instance.actionPerformed(ae);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of keyPressed method, of class Environment.
-     */
-    @Test
-    public void testKeyPressed() {
-        System.out.println("keyPressed");
-        KeyEvent ke = null;
-        Environment instance = new Environment();
-        instance.keyPressed(ke);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCharacter method, of class Environment.
-     */
-    @Test
-    public void testGetCharacter() {
-        System.out.println("getCharacter");
-        Environment instance = new Environment();
-        RunnerCharacter expResult = null;
-        RunnerCharacter result = instance.getCharacter();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of gameOver method, of class Environment.
-     */
-    @Test
-    public void testGameOver() {
-        System.out.println("gameOver");
-        Environment.gameOver();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getTime method, of class Environment.
-     */
-    @Test
-    public void testGetTime() {
-        System.out.println("getTime");
-        Environment instance = new Environment();
-        int expResult = 0;
-        int result = instance.getTime();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of time method, of class Environment.
-     */
-    @Test
-    public void testTime() {
-        System.out.println("time");
-        int expResult = 0;
-        int result = Environment.time();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of toString method, of class Environment.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        Environment instance = new Environment();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of keyReleased method, of class Environment.
-     */
-    @Test
-    public void testKeyReleased() {
-        System.out.println("keyReleased");
-        KeyEvent ke = null;
-        Environment instance = new Environment();
-        instance.keyReleased(ke);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of keyTyped method, of class Environment.
-     */
-    @Test
-    public void testKeyTyped() {
-        System.out.println("keyTyped");
-        KeyEvent ke = null;
-        Environment instance = new Environment();
-        instance.keyTyped(ke);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-
     
+     /**
+     * 
+     */
+    @Test
+    public void testCase7() {
+        System.out.println("Test Case 5");
+        
+    }
+ 
+    /**
+     * 
+     */
+    @Test
+    public void testCase8() {
+        System.out.println("Test Case 6");
+        
+    }
+
+
 }

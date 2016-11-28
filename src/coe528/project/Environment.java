@@ -41,7 +41,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
     private long lastFrameTime = 0; //UTC time of last frame processed.
     private static Environment newestInstance;
     private static boolean gameOver = false;
-    private boolean startGame = false;
+    private static boolean startGame = false;
     private static final Font font = new Font("arial", Font.BOLD, 50); //Font of start and game over
     
     /**
@@ -53,7 +53,7 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         
         //Initialize environment with 500 obstacles.
         for(int i = 0; i < 500; i++) {
-            objects.add(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));//Random obstacle type.
+            addObstacle(new Obstacle((int) (EnvironmentObject.OBSTACLE_1 + Math.random()*3)));
         }
         
         //Load images.
@@ -67,6 +67,13 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         }
         
         newestInstance = this;
+    }
+    
+    /**
+     * Adds an obstacle to the list of objects in this Environment.
+     */
+    public void addObstacle(Obstacle ob) {
+        objects.add(ob);//Random obstacle type.
     }
     
     /**
@@ -130,7 +137,8 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         if(startGame)
             lastFrameTime = System.currentTimeMillis();
         
-        super.repaint();//Repaints screen (calls paintComponent)
+        if(ae != null && ae.getSource() instanceof javax.swing.Timer)
+            super.repaint();//Repaints screen (calls paintComponent)
     }
 
     /**
@@ -168,12 +176,26 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
         System.exit(-1);
         return null; //To calm down the compiler.
     }
-    
+  
     /**
      * The game ends when this function is called. All visible processes stop.
      */
     public static void gameOver() {
         gameOver = true;
+    }
+    
+    /**
+     * The game ends when this function is called. All visible processes stop.
+     */
+    public static boolean isGameOver() {
+        return gameOver;
+    }
+    
+    /**
+     * The game starts when this function is called. All objects appear in frame.
+     */
+    public static boolean isStart() {
+        return startGame;
     }
     
     /**
@@ -190,6 +212,17 @@ public class Environment extends JPanel implements ActionListener, KeyListener, 
      */
     public static int time() {
         return newestInstance.getTime();
+    }
+    
+    /**
+     * Allow the object to become garbage-collected.
+     */
+    public void close() {
+        if(newestInstance == this) {
+            newestInstance = null;
+        }
+        gameOver = false;
+        startGame = false;
     }
     
     /**

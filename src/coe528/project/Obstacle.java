@@ -28,14 +28,27 @@ public class Obstacle extends EnvironmentObject {
      * <p>Bounds are set for each obstacle based on the type of obstacle given in imgIndex.</p>
      * @param imgIndex The image index representing the type of obstacle.
      */
-    public Obstacle(int imgIndex) {  
-        super(imgIndex,10,10); //Initializes with a temporary size of 10x10.
-        
+    public Obstacle(int imgIndex) {
         //Initializes the new objects X-position to somewhere between
         // lastXPosition + 350 <= x < lastXPosition + 850. (randomly chosen)
-        int x = lastXPosition + 350 + (int) (Math.random()*500);
-        int y = floorYLocation; //y coordinate of bottom of object (the floor).
+        this(imgIndex, 
+            lastXPosition + 350 + (int) (Math.random()*500)); 
+    }
+    
+    /**
+     * <p>Creates new obstacle.</p>
+     * <p>REQUIRES: A valid image index, and an x-coordinate.<br>
+     * MODIFIES: None<br>
+     * EFFECTS: Initializes instance variables.</p>
+     * <p>Bounds are set for each obstacle based on the type of obstacle given in imgIndex.</p>
+     * @param imgIndex The image index representing the type of obstacle.
+     * @param x X-coordinate of where obstacle should be.
+     */
+    public Obstacle(int imgIndex, int x) {  
+        super(imgIndex,10,10); //Initializes with a temporary size of 10x10.
+        
         lastXPosition = x;
+        int y = floorYLocation; //y coordinate of bottom of object (the floor).
         
         //Set the position, and the real size, based on the image index.
         switch(imgIndex) {
