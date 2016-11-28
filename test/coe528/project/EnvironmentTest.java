@@ -74,7 +74,9 @@ public class EnvironmentTest {
             }
             assertTrue(instance.isGameOver());
  
-    }    /**
+    } 
+    
+    /**
      * Check that it will be NOT be game over if the RunnerCharacter is alive.
      */
     @Test
