@@ -74,13 +74,27 @@ public class EnvironmentTest {
             }
             assertTrue(instance.isGameOver());
  
-    }
-    /**
-     * Check that a valid RunnerCharacter is attached.
+    }    /**
+     * Check that it will be NOT be game over if the RunnerCharacter is alive.
      */
     @Test
     public void testCase3() {
         System.out.println("Test Case 3");
+        instance = new Environment();
+            RunnerCharacter character = instance.getCharacter();
+            //character.applyCommand(new DeathCommand());
+            //character.update(new DeathCommand());
+            
+            assertFalse(instance.isGameOver());
+ 
+    }
+
+    /**
+     * Check that a valid RunnerCharacter is attached.
+     */
+    @Test
+    public void testCase4() {
+        System.out.println("Test Case 4");
         
         if(!instance.getCharacter().repOk())
             fail("Invalid Runner Character");
@@ -90,46 +104,24 @@ public class EnvironmentTest {
      * Check that the game will start when SPACE is entered. 
      */
     @Test
-    public void testCase4() {
-        System.out.println("Test Case 4");
-        instance = new Environment();
-       
-        instance.keyPressed(spacebarEntered); //Start game (and timing mechanism).
-        assertTrue(instance.isStart());    
-    }
-    
-     /**
-     * 
-     */
-    @Test
     public void testCase5() {
         System.out.println("Test Case 5");
-        
+        instance = new Environment();
+       
+        instance.keyPressed(spacebarEntered); //Start game
+        assertTrue(instance.isStart());    
     }
- 
     /**
-     * 
+     * Check that the game will NOT start if SPACE is not entered. 
      */
     @Test
     public void testCase6() {
-        System.out.println("Test Case 6");        
-    }
-    
-     /**
-     * 
-     */
-    @Test
-    public void testCase7() {
-        System.out.println("Test Case 5");
-        
-    }
- 
-    /**
-     * 
-     */
-    @Test
-    public void testCase8() {
         System.out.println("Test Case 6");
-        
+        instance = new Environment();
+       
+        //instance.keyPressed(spacebarEntered); //Start game
+        assertFalse(instance.isStart());    
     }
+
+
 }
