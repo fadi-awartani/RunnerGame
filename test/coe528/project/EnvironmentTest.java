@@ -2,7 +2,6 @@ package coe528.project;
 
 import java.awt.Button;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -52,43 +51,39 @@ public class EnvironmentTest {
         
         if(Math.abs(result - expResult) > 5)
             fail("Timer is off by more than 5 ms. (" + result + " vs " + expResult + ")");
-        
     }
     
 
 
 
     /**
-     * Check that it will be game over when the RunnerCharacter dies.
+     * Check that it will be game over when a DeathCommand is applied to the
+     * RunnerCharacter.
      */
     @Test
     public void testCase2() {
         System.out.println("Test Case 2");
-        instance = new Environment();
-            RunnerCharacter character = instance.getCharacter();
-            character.applyCommand(new DeathCommand());
-            character.update(new DeathCommand());
-            
-            if (instance.isGameOver() == false) {
-                fail("It is not yet game over.");
-            }
-            assertTrue(instance.isGameOver());
- 
+        RunnerCharacter character = instance.getCharacter();
+        character.applyCommand(new DeathCommand());
+        character.update(instance);
+        
+        assertTrue(instance.isGameOver()); 
     } 
     
     /**
-     * Check that it will be NOT be game over if the RunnerCharacter is alive.
+     * Check that the gameOver flag is not set when the game starts.
      */
     @Test
     public void testCase3() {
         System.out.println("Test Case 3");
-        instance = new Environment();
-            RunnerCharacter character = instance.getCharacter();
+        instance.actionPerformed(null);
+        instance.actionPerformed(null);
+        instance.actionPerformed(null);
+            //RunnerCharacter character = instance.getCharacter();
             //character.applyCommand(new DeathCommand());
             //character.update(new DeathCommand());
             
-            assertFalse(instance.isGameOver());
- 
+        assertFalse(instance.isGameOver());
     }
 
     /**
@@ -104,17 +99,19 @@ public class EnvironmentTest {
 
     /**
      * Check that the game will start when SPACE is entered. 
+     * Accessing STATIC variable - do something else for this test case.
      */
     @Test
     public void testCase5() {
         System.out.println("Test Case 5");
-        instance = new Environment();
        
         instance.keyPressed(spacebarEntered); //Start game
         assertTrue(instance.isStart());    
     }
+    
     /**
      * Check that the game will NOT start if SPACE is not entered. 
+     * REDO: Same thing as previous test case. Do something else here.
      */
     @Test
     public void testCase6() {
