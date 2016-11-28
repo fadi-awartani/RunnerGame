@@ -51,3 +51,4 @@ build/classes/coe528/project/Environment.class
 *.class
 /dist/
 *.class
+*.class
