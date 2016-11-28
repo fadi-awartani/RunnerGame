@@ -99,7 +99,6 @@ public class EnvironmentTest {
 
     /**
      * Check that the game will start when SPACE is entered. 
-     * Accessing STATIC variable - do something else for this test case.
      */
     @Test
     public void testCase5() {
@@ -111,7 +110,6 @@ public class EnvironmentTest {
     
     /**
      * Check that the game will NOT start if SPACE is not entered. 
-     * REDO: Same thing as previous test case. Do something else here.
      */
     @Test
     public void testCase6() {
