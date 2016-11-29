@@ -1,8 +1,8 @@
 package coe528.project;
 
 /**
- * <b>OVERVIEW:</b> <br>
- * Interface for commands. Based on the Command design pattern.
+ * <p> <b>OVERVIEW:</b>
+ * Interface for commands. Based on the Command design pattern. </p>
  * @author Aaron, Anjalo, Fadi
  */
 public interface ICommand {

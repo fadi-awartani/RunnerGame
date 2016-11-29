@@ -1,10 +1,10 @@
 package coe528.project;
 
 /**
- * <p><b>OVERVIEW:</b><br> 
+ * <p><b>OVERVIEW:</b> <br>
  * An immutable class which represents a jump command for a RunnerCharacter.</p>
  * 
- * <p><b>Abstraction Function:</b>
+ * <p><b>Abstraction Function:</b> <br>
  * A JumpCommand is an object such that it has initial time and a RunnerCharacter
  * object to invoke. </p>
  * 
@@ -69,7 +69,7 @@ public class JumpCommand implements ICommand, IObserverSubject {
      * @return Whether it is ok to create a new JumpCommand.
      */
     public static boolean canJump() {       
-        return Environment.time() - latestJumpTime >= jumpDuration;
+        return Environment.time() - latestJumpTime >= jumpDuration - 80;
     }
     
     /**

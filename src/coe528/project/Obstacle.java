@@ -14,6 +14,9 @@ package coe528.project;
  * 1 &le; imageIndex &le; 3, and <br>
  * size.x &ge; 1350, and super.repOk() </p>
  * 
+ * <p> Note that toString() is the same as in the parent class, thus, it is 
+ * not overridden. </p>
+ * 
  * @author Aaron, Anjalo, Fadi
  */
 public class Obstacle extends EnvironmentObject {
@@ -104,6 +107,4 @@ public class Obstacle extends EnvironmentObject {
     public boolean repOk(){
         return size.x >= 1350 && imageIndex >= 1 && imageIndex <= 3 && super.repOk();
     }
-    
-    //toString() is the same as in the parent class, thus, it is not overridden.
 }
