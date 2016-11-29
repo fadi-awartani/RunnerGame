@@ -2,6 +2,7 @@ package coe528.project;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  * Test cases for ObstacleTest class.
@@ -12,6 +13,10 @@ public class ObstacleTest {
     public ObstacleTest() {
     }
     
+    @Before
+    public void setUp() {
+        EnvironmentObject.loadImages();
+    }
     /**
      * Test of isCollidingWith method, of class Obstacle.
      */
