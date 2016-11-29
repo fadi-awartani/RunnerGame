@@ -28,6 +28,7 @@ public class ObstacleTest {
     /**
      * Test of Obstacle constructor with incorrect boundary
      * Black box (imgIndex != OBSTACLE_1,OBSTACLE_2,OBSTACLE_3)
+     * Not good, done in EnvironmentObjectTest.
      */
     @Test (expected = IllegalArgumentException.class)
     public void testCase8() {

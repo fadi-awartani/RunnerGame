@@ -52,9 +52,6 @@ public class EnvironmentTest {
         if(Math.abs(result - expResult) > 5)
             fail("Timer is off by more than 5 ms. (" + result + " vs " + expResult + ")");
     }
-    
-
-
 
     /**
      * Check that it will be game over when a DeathCommand is applied to the
@@ -71,17 +68,15 @@ public class EnvironmentTest {
     } 
     
     /**
-     * Check that the gameOver flag is not set when the game starts.
+     * Check that the gameOver flag is not set when the game starts. 
+     * (Even after being updated many times)
      */
     @Test
     public void testCase3() {
         System.out.println("Test Case 3");
-        instance.actionPerformed(null);
-        instance.actionPerformed(null);
-        instance.actionPerformed(null);
-            //RunnerCharacter character = instance.getCharacter();
-            //character.applyCommand(new DeathCommand());
-            //character.update(new DeathCommand());
+        
+        for(int i = 0; i < 500; i++)
+            instance.actionPerformed(null);
             
         assertFalse(instance.isGameOver());
     }
@@ -109,12 +104,13 @@ public class EnvironmentTest {
     }
     
     /**
-     * Check that the game will NOT start if SPACE is not entered. 
+     * Check that the game will NOT start if SPACE is not entered.
+     * Not good.
      */
     @Test
     public void testCase6() {
         System.out.println("Test Case 6");
-        instance = new Environment();
+        //instance = new Environment();
        
         //instance.keyPressed(spacebarEntered); //Start game
         assertFalse(instance.isStart());    
