@@ -14,7 +14,7 @@ package coe528.project;
  * @author Aaron, Anjalo, Fadi
  */
 public class JumpCommand implements ICommand, IObserverSubject {
-    private static final int jumpDuration = 610; //ms
+    public static final int jumpDuration = 610; //ms
     private static int latestJumpTime = -jumpDuration;
     private final int initTime;
     private final RunnerCharacter c;

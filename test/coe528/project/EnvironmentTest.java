@@ -102,19 +102,4 @@ public class EnvironmentTest {
         instance.keyPressed(spacebarEntered); //Start game
         assertTrue(instance.isStart());    
     }
-    
-    /**
-     * Check that the game will NOT start if SPACE is not entered.
-     * Not good.
-     */
-    @Test
-    public void testCase6() {
-        System.out.println("Test Case 6");
-        //instance = new Environment();
-       
-        //instance.keyPressed(spacebarEntered); //Start game
-        assertFalse(instance.isStart());    
-    }
-
-
 }

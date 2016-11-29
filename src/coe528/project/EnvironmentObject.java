@@ -46,8 +46,8 @@ public abstract class EnvironmentObject {
      * @param height Height of bounds of object, in pixels.
      */
     public EnvironmentObject(int image, int width, int height) {
-        //if(image < 0 || image >= imgs.length)
-        //    throw new IllegalArgumentException("Image index invalid.");
+        if(image < 0 || image >= imgs.length)
+            throw new IllegalArgumentException("Image index invalid.");
         if(width <= 0 || height <= 0)
             throw new IllegalArgumentException("Invalid dimensions.");
         
